@@ -214,12 +214,6 @@
             font-weight: bold;
         }
 
-        .video-card-description {
-            color: #666;
-            font-size: 0.85em;
-            line-height: 1.4;
-        }
-
         /* Advertisement Section Attached to Video */
         .video-ad-section {
             padding: 12px;
@@ -679,10 +673,6 @@
                 font-size: 1.2em;
             }
 
-            .video-card-description {
-                font-size: 0.9em;
-            }
-
             .video-ad-section {
                 padding: 15px;
             }
@@ -955,7 +945,6 @@
                 Your browser does not support the video tag.
             </video>
             <h3 id="modalVideoTitle" style="color: #333; margin-top: 15px; font-size: 1.3em;"></h3>
-            <p id="modalVideoDesc" style="color: #666; margin-top: 8px; line-height: 1.6; font-size: 0.9em;"></p>
         </div>
     </div>
 
@@ -965,42 +954,36 @@
             {
                 id: 'video1',
                 title: 'Big Buck Bunny',
-                description: 'A large Mandarin duck leads a small bunch of ducklings through the woods.',
                 url: 'https://www.w3schools.com/html/mov_bbb.mp4',
                 adUrl: 'https://example.com'
             },
             {
                 id: 'video2',
                 title: 'Elephant Dream',
-                description: 'The first Blender open movie from 2006.',
                 url: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ElephantsDream.mp4',
                 adUrl: 'https://example.com'
             },
             {
                 id: 'video3',
                 title: 'For Bigger Blazes',
-                description: 'Introducing Chromecast built-in',
                 url: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerBlazes.mp4',
                 adUrl: 'https://example.com'
             },
             {
                 id: 'video4',
                 title: 'For Bigger Escapes',
-                description: 'Introducing Chromecast, the new way to enjoy your media.',
                 url: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerEscapes.mp4',
                 adUrl: 'https://example.com'
             },
             {
                 id: 'video5',
                 title: 'For Bigger Joy',
-                description: 'Introducing Chromecast built-in and Chromecast Audio.',
                 url: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerJoy.mp4',
                 adUrl: 'https://example.com'
             },
             {
                 id: 'video6',
                 title: 'For Bigger Mouthfuls',
-                description: 'Introducing Chromecast, the new way to enjoy your media.',
                 url: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerMouthfuls.mp4',
                 adUrl: 'https://example.com'
             }
@@ -1016,7 +999,6 @@
         const videoPlayerModal = document.getElementById('videoPlayerModal');
         const modalVideo = document.getElementById('modalVideo');
         const modalVideoTitle = document.getElementById('modalVideoTitle');
-        const modalVideoDesc = document.getElementById('modalVideoDesc');
         const commentForm = document.getElementById('commentForm');
         const commentsList = document.getElementById('commentsList');
 
@@ -1138,7 +1120,6 @@
                         </div>
                         <div class="video-info">
                             <div class="video-card-title">${video.title}</div>
-                            <div class="video-card-description">${video.description}</div>
                         </div>
                     </div>
                     
@@ -1340,7 +1321,6 @@
         function playVideo(video) {
             modalVideo.src = video.url;
             modalVideoTitle.textContent = video.title;
-            modalVideoDesc.textContent = video.description;
             videoPlayerModal.classList.add('show');
             modalVideo.play();
         }
