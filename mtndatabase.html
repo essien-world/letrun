@@ -243,6 +243,11 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 5px;
             text-align: center;
+            display: none;
+        }
+
+        .video-ad-section.show {
+            display: block;
         }
 
         .video-ad-label {
@@ -940,7 +945,7 @@
     <div class="countdown-modal" id="videoPlayerModal">
         <div class="countdown-content" style="max-width: 800px; padding: 20px;">
             <button style="position: absolute; top: 15px; right: 15px; background: #667eea; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 14px;" onclick="closeVideoPlayer()">Close</button>
-            <video id="modalVideo" style="width: 100%; border-radius: 10px; background: #000;" controls>
+            <video id="modalVideo" style="width: 100%; border-radius: 10px; background: #000;" controls autoplay>
                 <source src="" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -1122,12 +1127,12 @@
                             <div class="video-card-title">${video.title}</div>
                         </div>
                         <button class="play-video-button" data-video-id="${video.id}" disabled>
-                            Play Video
+                            Watch Video
                         </button>
                     </div>
                     
                     <!-- Advertisement Section for this Video -->
-                    <div class="video-ad-section">
+                    <div class="video-ad-section" id="ad-section-${video.id}">
                         <div class="video-ad-label">📢 Watch Advertisement</div>
                         <div class="video-ad-text">View sponsor ad to unlock this video</div>
                         <button class="video-ad-button" data-video-id="${video.id}">
@@ -1142,11 +1147,27 @@
         }
 
         function addVideoEventListeners() {
+            // Play button click - now triggers ad viewing
+            document.querySelectorAll('.play-video-button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const videoId = this.dataset.videoId;
+                    const video = videos.find(v => v.id === videoId);
+                    if (videoStates[videoId].adWatched) {
+                        // If ad already watched, play video directly
+                        playVideo(video);
+                    } else {
+                        // If ad not watched, show ad section and open ad
+                        const adSection = document.getElementById(`ad-section-${videoId}`);
+                        adSection.classList.add('show');
+                        openAdWithFallback(videoId, video.adUrl);
+                    }
+                });
+            });
+
             // Ad button click
             document.querySelectorAll('.video-ad-button').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const videoId = this.dataset.videoId;
-                    currentAdVideoId = videoId;
                     const video = videos.find(v => v.id === videoId);
                     openAdWithFallback(videoId, video.adUrl);
                 });
@@ -1161,19 +1182,11 @@
                     }
                 });
             });
-
-            // Play button click
-            document.querySelectorAll('.play-video-button').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const videoId = this.dataset.videoId;
-                    const video = videos.find(v => v.id === videoId);
-                    playVideo(video);
-                });
-            });
         }
 
         function openAdWithFallback(videoId, adUrl) {
             const state = videoStates[videoId];
+            currentAdVideoId = videoId;
             
             // Open ad window
             state.adWindow = window.open(adUrl, 'advertisement_' + videoId, 'width=1000,height=700,scrollbars=yes,resizable=yes,menubar=yes,toolbar=yes,location=yes');
@@ -1282,6 +1295,7 @@
             const adBtn = document.querySelector(`.video-ad-button[data-video-id="${videoId}"]`);
             const playBtn = document.querySelector(`.play-video-button[data-video-id="${videoId}"]`);
             const statusEl = document.getElementById(`ad-status-${videoId}`);
+            const adSection = document.getElementById(`ad-section-${videoId}`);
             
             if (adBtn) adBtn.disabled = true;
             if (playBtn) playBtn.disabled = false;
@@ -1296,6 +1310,12 @@
                     state.adWindow.close();
                 }
             } catch (e) {}
+
+            // Auto-play video after ad is watched
+            const video = videos.find(v => v.id === videoId);
+            setTimeout(() => {
+                playVideo(video);
+            }, 500);
         }
 
         function closeCountdownFailed(videoId) {
@@ -1318,7 +1338,7 @@
             modalVideo.src = video.url;
             modalVideoTitle.textContent = video.title;
             videoPlayerModal.classList.add('show');
-            modalVideo.play();
+            // autoplay attribute will start playing
         }
 
         function closeVideoPlayer() {
