@@ -1,649 +1,1228 @@
 <!DOCTYPE html>
-<html>
-    <head> 
-      <script src="allads.js"></script>
-
-        
-      <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-180685151-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-180685151-1');
-</script>
-
-      <meta name="google-site-verification" content="2tzCn_X6JZOV46iZk-PHkEkdAhqPZNOjbTcd740KuMU" />
-     
-    <script>
-
-        function set_Cookie(name,value){
-            var Days = 30;
-            var exp = new Date();
-            exp.setTime(exp.getTime() + (Days*20*1000));
-            document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString()+"; path=/;"
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Website with Ad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        function get_Cookie(name){
-            var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-            if(arr=document.cookie.match(reg)){
-                return unescape(arr[2]);
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo:hover {
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 15px 0;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 10px 25px;
+            border-radius: 5px;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-btn-login {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .nav-btn-login:hover {
+            background: white;
+            color: #1e3c72;
+        }
+
+        .nav-btn-signup {
+            background: #667eea;
+            color: white;
+        }
+
+        .nav-btn-signup:hover {
+            background: #764ba2;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+        .content-wrapper {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 50px;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header-section h1 {
+            color: #333;
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .header-section p {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .header-section .subtitle {
+            color: #999;
+            font-size: 1em;
+        }
+
+        /* Videos Grid Layout */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .video-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .video-card-main {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .video-card-header {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: #000;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .video-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-card-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .video-card-header:hover .video-card-play {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-card-header.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .video-card-header.disabled .video-card-play {
+            background: rgba(200, 200, 200, 0.8);
+        }
+
+        .video-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .video-card-title {
+            color: #333;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .video-card-description {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .video-card-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .video-card-stat {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+
+        .video-card-stat-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .video-card-stat-label {
+            color: #999;
+            font-size: 0.8em;
+            margin-top: 3px;
+        }
+
+        /* Advertisement Section Attached to Video */
+        .video-ad-section {
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .video-ad-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .video-ad-text {
+            color: white;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .video-ad-button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .video-ad-button:hover:not(:disabled) {
+            background: #f0f0f0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-ad-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .ad-status {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 8px;
+        }
+
+        .ad-status.completed {
+            color: #90EE90;
+        }
+
+        .play-video-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .play-video-button:hover:not(:disabled) {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .play-video-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Countdown Modal */
+        .countdown-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .countdown-modal.show {
+            display: flex;
+        }
+
+        .countdown-content {
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .countdown-message {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .countdown-timer {
+            font-size: 80px;
+            color: #667eea;
+            font-weight: bold;
+            margin: 25px 0;
+        }
+
+        .countdown-text {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .countdown-instruction {
+            font-size: 14px;
+            color: #999;
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            line-height: 1.6;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box-label {
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .stat-box-value {
+            color: #333;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid #667eea;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .popup-status {
+            font-size: 14px;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid #eee;
+        }
+
+        .comments-header {
+            margin-bottom: 30px;
+        }
+
+        .comments-header h2 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .comments-count {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .comment-form {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #eee;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 0.95em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment-item {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        .comment-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .comment-author {
+            color: #333;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        .comment-date {
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .comment-text {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .no-comments {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .no-comments-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .videos-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
             }
-            return '';
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .header-section h1 {
+                font-size: 2.2em;
+            }
         }
 
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 15px;
+            }
 
-        /*            if(get_Cookie("d")>0 &&get_Cookie("d")<12){
-                        document.getElementById("first-box")."quedate__step".display="none";//??;
-                        document.getElementById("second-box").style.display="none";//??;
-                        document.getElementById("third-box").style.display="none";//??;
-                        document.getElementsByClassName("loading2__box").style.display="";//??;
-                    }*/
+            .nav-links {
+                gap: 15px;
+                font-size: 14px;
+            }
 
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
 
-    </script>
-  
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>MTN - FREE DATA REWARD TO ALL CUSTOMERS</title>
-        <link rel="shortcut icon" type="image/png" href="ii.jpeg" />
-        <meta name="og:title" content="MTN - FREE DATA REWARD TO ALL CUSTOMERS" />
-        <meta property="og:description" content="MTN, is Offering Free Data to all customers" />
-        <meta property="og:image" content="img width="928" height="1139" alt="Image" src="https://github.com/user-attachments/assets/4e0d2e00-f3ca-4680-9129-608386521a13" />
-        <meta property="og:type" content="website" />
-    <meta property="og:updated_time" content="1440432930" />
-    <link rel="me" href="https://www.blogger.com/profile/13809910274301822692" />
+            .content-wrapper {
+                padding: 25px;
+            }
 
-<link rel="me" href="https://www.blogger.com/profile/17222055979768522082" />
-<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
-<meta name='google-adsense-platform-domain' content='blogspot.com'/>
-<link rel="me" href="https://www.blogger.com/profile/05963652588202294752" />
-<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
-<meta name='google-adsense-platform-domain' content='blogspot.com'/>
-<link rel="me" href="https://www.blogger.com/profile/05853757488319578479" />
-<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
-<meta name='google-adsense-platform-domain' content='blogspot.com'/>
-<link rel="me" href="https://www.blogger.com/profile/03760741075252211382" />
-<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
-<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+            .header-section h1 {
+                font-size: 1.8em;
+            }
+
+            .main-content {
+                padding: 30px 15px;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comment-form {
+                padding: 15px;
+            }
+
+            .comments-header h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
 </head>
 <body>
-  <style>
-  .blink {
-  animation: blink 1s steps(1, end) infinite;
-}
-
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-</style>
-<style type="text/css">
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
-@import url("//fonts.googleapis.com/earlyaccess/droidarabicnaskh.css");
-* {
-    margin: 0;
-    padding: 0;
-    font-family: Poppins, Droid Arabic Naskh;
-    font-weight: normal;
-    box-sizing: border-box;
-
-
-}
-body {
-    direction: lfl;
-    background: #FFFFFF;
-}
-a {
-    text-decoration: none;
-}
-.post {
-    background: #fff;
-    margin: 0 auto;
-    padding: 10px;
-    max-width: 500px;
-    border: 1px solid #d0d1d5;
-    border-radius: 3px;
-}
-.post img {
-    width: 100%;
-}
-.welcome {
-    font-size: 15px;
-}
-.amount,
-#getname {
-    color: #098105;
-    text-decoration: none;
-}
-.done {
-    text-align: center;
-    color: #27ae60;
-}
-.tip {
-    font-size: 14px;
-}
-.title {
-    text-align: center;
-}
-.error {
-    display: none;
-    text-align: center;
-    font-size: 14px;
-    color: #e74c3c;
-}
-button {
-    display: block;
-    width: 200px;
-    height: 50px;
-    color: #fff;
-    border: none;
-    outline: none;
-    font-size: 24px;
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 0 10px;
-    margin: 10px auto;
-    background: rgb(46, 55, 122);
-    transition: background 0.3s ease;
-}
-button:hover {
-    background: #098105;
-}
-.phone {
-    max-width: 400px;
-    margin: 10px auto;
-}
-.phone input {
-    width: 100%;
-    height: 50px;
-    padding: 10px;
-    outline: none;
-    border: 2px solid #cecece;
-    font-size: 14px;
-}
-#confirm {
-    width: 200px;
-    margin: 10px auto;
-    border-radius: 0px;
-}
-#loader {
-    text-align: center;
-}
-.spin {
-    width: 50px;
-    height: 50px;
-    background: transparent;
-    border: solid 8px rgb(46, 55, 122);
-    border-right-color: transparent;
-    border-radius: 50%;
-    margin: 10px auto;
-    animation: spin 0.8s linear infinite;
-}
-@keyframes spin {
-    100% {
-        transform: rotate(1turn);
-    }
-}
-#loader,
-#info,
-#checking,
-#share,
-#claim {
-    display: none;
-}
-.center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.barr {
-    direction: ltr;
-    max-width: 400px;
-    margin: 10px auto;
-    box-sizing: border-box;
-}
-.fill {
-    position: relative;
-    display: inline-block;
-    width: calc(100% - 100px);
-    height: 35px;
-    padding: 2px;
-    border: 2px solid #098105;
-}
-#fill,
-#fill2 {
-    background: #098105;
-    width: 0%;
-    height: 100%;
-}
-.percentage {
-    width: 100px;
-    float: right;
-    height: 35px;
-    font-size: 16px;
-    border: 2px solid #098105;
-}
-#percentage,
-#percentage2 {
-    margin-left: 5px;
-}
-#check,
-#check2 {
-    display: none;
-}
-.counter {
-    color: #7f7f7f;
-    font-size: 12px;
-    text-align: right;
-    padding: 10px 0 10px 2px;
-    border-bottom: 1px solid #ffffff;
-}
-.reactions {
-    display: inline-flex;
-    align-items: center;
-    float: left;
-}
-.counter img {
-    float: left;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid #000000;
-    box-sizing: content-box;
-}
-.like,
-.love {
-    margin-right: -5px;
-}
-.like {
-    z-index: 2;
-}
-.love {
-    z-index: 1;
-}
-.bar {
-    display: table;
-    width: 100%;
-    border-bottom: 1px solid #000000;
-}
-.bar .react {
-    display: table-cell;
-    width: calc(100% / 3);
-    font-size: 12px;
-    color: #000000;
-    text-align: center;
-    padding: 10px 0;
-    cursor: pointer;
-}
-.comments {
-    direction: ltr;
-}
-.comment {
-    padding: 6px 0;
-    margin-top: 5px;
-}
-.comment img {
-    float: left;
-    width: 32px;
-    height: 32px;
-    border: none;
-    border-radius: 18px;
-    cursor: pointer;
-}
-.reply {
-    margin-left: 37px;
-}
-.single-container {
-    margin-left: 37px;
-    background: #f1f2f6;
-    padding: 10px;
-    border-radius: 15px;
-    font-size: 12px;
-}
-.single-container .user {
-    display: inline-block;
-    cursor: pointer;
-    color: #365899;
-    margin-bottom: 5px;
-}
-.single-container .text {
-    display: block;
-}
-.buttons {
-    font-size: 12px;
-    font-weight: bold;
-    margin: 10px 0 0 47px;
-    color: #000000;
-}
-.action {
-    cursor: pointer;
-}
-.action:hover {
-    text-decoration: underline;
-}
-.input {
-    padding: 6px 12px 12px;
-}
-.input input {
-    width: 100%;
-    background: #f1f2f6;
-    padding: 10px;
-    border-radius: 15px;
-    border: 0;
-    outline: none;
-}
-.A{
-    text-align: center;
-    background-color: rgb(46, 55, 122);
-}
-</style>
-  
-  
-  <center><img width="1280" height="720" alt="Image" src="https://github.com/user-attachments/assets/a16f0b39-ee04-437b-94fb-ced52b84222b">
-      
-                     </center>
-  
-                   
-  <center>
-  <marquee
-  direction="down"
-  width="350"
-  height="40"
-  behavior="alternate"
-  style="border:solid">
-    <marquee behavior="alternate"> <font color="black">MTN FREE DATA REWARD TO ALL CUSTOMERS</font></marquee>
-</marquee>
-  
-  </center>
-
-
-
-
-
-<!-- BEGIN: Powered by Supercounters.com -->
-<center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script><script type="text/javascript">sc_online_t(1707042,"","ffffff");</script><br><noscript><a href="https://www.supercounters.com/">supercounters.com</a></noscript>
-</center>
-<!-- END: Powered by Supercounters.com -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-                        <div class="A">
-                        <font color="white">  Dear Customer Kindly Confirm your MTN number to activate your free data </font><br/> <b><font color="white">DEADLINE:</font></b> <span class="blink"><b><font color="#FF0000">29th July</font></b> </span><font color="white">Enter your MTN number below and click <b></b>CHECK</b></font>
-         </div>
-    <div class="post" width="100%">
-
-        <div id="intro">
-         
-            <p class="welcome">
-
-
-
-               
-                <center><input type="char" placeholder="Enter your MTN number" id="name" name="Phone" style="fontwidth: 244px;height: 56px;font-size: 18px;width: 330px;" onkeypress="return numberonly(event);"></center><br/>
-                 
-                
-              
-               
-          
-               
-            <button id="go">CHECK ➤</button>
-        </div>
-        <div id="loader">
-            <div>Checking Your Number...</div>
-            <div class="spin"></div>
-            <div id="num">0%</div>
-        </div>
-        <div id="info">
-         
-          
-    
-           <center><p class="title"><font color="red">HOW OLD IS YOUR MTN SIM CARD</font></p></center>
-          <center>
-<select aria-label="الجنس" name="birthday_year" id="year" title="الجنس" class="_5dba" style="
-    width: 330px;
-    height: 56px;
-">
-<option value="أختر نوع الشبكة" selected="1">---Select Here---</option>
-  <option value="1">6 Month and Above - 5GB  </option>
-<option value="2"> 1 Year and Above - 10GB  </option>
-<option value="2"> 5 Year and Above - 50GB  </option>
-<option value="2"> 10 Year Plus - 100GB  </option>
-</select>
-</center><br>
-
- 
-                  
-          <button id="confirm">Proceed</button>
-            </div>
-            <p class="error">Sorry, Your Number is Missing <a href="https://okpoitid.xyz/newfile"> <b><font color="#14948F">ADD NUMBER</font></b></a></p>
-        </div>
-        <div id="checking">
-            <p class="title">Activating Data...</p>
-            <div class="barr">
-                <div class="fill">
-                    <div id="fill"></div>
-                </div>
-                <div class="percentage center">
-                    <span id="load"><i class="fa fa-spinner fa-pulse"></i></span>
-                    <span id="check"><i class="fa fa-check-circle"></i></span>
-                    <span id="percentage"></span>
-                </div>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span>🎬</span> Free Videos
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#videos">Videos</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="nav-btn nav-btn-login">Login</button>
+                <button class="nav-btn nav-btn-signup">Sign Up</button>
             </div>
         </div>
-        <div id="share">
+    </nav>
 
-            <p class="tip"> Congratulations, your MTN Number <span id="getname"></span>،</p>
-            <p class="tip">
-                is Eligible to receive Free Data Offer <span class="amount"> Proceed to Activate your Free Data</span><br>
-              How to proceed:
-            </p><br>
-            <p class="tip">1. Share it with 5 groups or 15 friends on WhatsApp (Click on the "SHARE" icon below).</p>
-            <p class="tip">2. You will be redirected automatically to our "ACTIVATION" page after the GREEN verification bar is filled.</p>
-           
-
-            <button id="whatsapp">SHARE</button>
-            <div class="barr">
-                <div class="fill">
-                    <div id="fill2"></div>
-                </div>
-                <div class="percentage center">
-                    <span><i class="fa fa-spinner fa-pulse"></i></span>
-                    <span id="percentage2">0%</span>
-                </div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="content-wrapper">
+            <!-- Header -->
+            <div class="header-section">
+                <h1>Premium Video Content</h1>
+                <p>Watch advert to support free video</p>
+                <p class="subtitle">Watch the advertisement attached to each video to unlock it</p>
             </div>
-        </div>
-        <div id="claim">
-            <p class="done"><i class="fa fa-check-circle fa-3x" aria-hidden="true"></i></p>
-            <p class="title"> Click "ACTIVATE" to activate your Data </p>
-           <br/>
-          <a  onclick="window.open('https://omg10.com/4/11176773')" href="https://omg10.com/4/11176773" >
-                    <button style="display: flex;align-items: center;justify-content: center;margin: 0;width: 100%;" class="btn btn-primary"><font color="white">ACTIVATE 5GB</font></button>
-                    </a><br/>
-          
-       <a  onclick="window.open('https://omg10.com/4/11176773')" href="https://omg10.com/4/11176773" >
-                    <button style="display: flex;align-items: center;justify-content: center;margin: 0;width: 100%;" class="btn btn-primary"><font color="white">ACTIVATE 10GB</font></button>
-                    </a>
-             <br/>
 
-            <a  onclick="window.open('https://omg10.com/4/11176773')" href="https://omg10.com/4/11176773" >
-                    <button style="display: flex;align-items: center;justify-content: center;margin: 0;width: 100%;" class="btn btn-primary"><font color="white">ACTIVATE 50GB</font></button>
-                    </a>
-             <br/>
+            <!-- Videos Grid -->
+            <h2 style="color: #333; margin-bottom: 30px; font-size: 2em; text-align: center;">Highlight Videos</h2>
+            <div class="videos-grid" id="videosGrid">
+                <!-- Videos will be populated here by JavaScript -->
+            </div>
 
-            <a  onclick="window.open('https://omg10.com/4/11176773')" href="https://omg10.com/4/11176773" >
-                    <button style="display: flex;align-items: center;justify-content: center;margin: 0;width: 100%;" class="btn btn-primary"><font color="white">ACTIVATE UNLIMITED</font></button>
-                    </a>
-             <br/>
-          
-          
-          <a  onclick="window.open('https://omg10.com/4/11176773')" href="https://omg10.com/4/11176773" >
-                    <button style="display: flex;align-items: center;justify-content: center;margin: 0;width: 100%;" class="btn btn-primary"><font color="white">REPORT ISSUE</font></button>
-                    </a><br/>
-            <button id="offer">ACTIVATE</button><br/>
-             
-             
-          
-          
-              </div>
-        <center><img width="1280" height="720" alt="Image" src="https://github.com/user-attachments/assets/666d741c-ff8a-4c6d-93e4-81093f91d4d1">
-      
-                     </center>
+            <!-- Comments Section -->
+            <div class="comments-section">
+                <div class="comments-header">
+                    <h2>💬 Comments</h2>
+                    <p class="comments-count">Share your thoughts about our videos</p>
+                </div>
+
+                <!-- Comment Form -->
+                <div class="comment-form">
+                    <form id="commentForm">
+                        <div class="form-group">
+                            <label for="commentName">Your Name *</label>
+                            <input type="text" id="commentName" name="name" required placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="commentText">Your Comment *</label>
+                            <textarea id="commentText" name="text" required placeholder="Share your thoughts..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Post Comment</button>
+                    </form>
+                </div>
+
+                <!-- Comments List -->
+                <div id="commentsList" class="comments-list">
+                    <div class="no-comments">
+                        <div class="no-comments-icon">📝</div>
+                        <p>No comments yet. Be the first to share your thoughts!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
+    <!-- Countdown Modal -->
+    <div class="countdown-modal" id="countdownModal">
+        <div class="countdown-content">
+            <div class="countdown-message">📺 Advertisement Viewing Time</div>
+            <div class="countdown-timer" id="countdownTimer">20</div>
+            <div class="countdown-text">seconds remaining</div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-box-label">Window Status</div>
+                    <div class="stat-box-value" id="windowStatus">🔍 Checking...</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-label">Page Load</div>
+                    <div class="stat-box-value" id="pageLoadStatus">⏳ Loading...</div>
+                </div>
+            </div>
 
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
 
+            <div class="countdown-instruction">
+                ℹ️ Keep the advertisement window open. Closing it before the countdown ends will prevent video playback.
+            </div>
+            
+            <div class="popup-status" id="popupStatus">
+                <div class="spinner"></div>
+                <span>Monitoring advertisement page...</span>
+            </div>
+        </div>
+    </div>
 
-<script type="text/javascript">
-var time = 0;
-window.setInterval(function () {
-    time = time + 1;
-    $(".t1").html(time + 1 + "m");
-    $(".t2").html(time + 2 + "m");
-    $(".t3").html(time + 4 + "m");
-}, 6e4);
-var likes = 134,
-    comments = 23,
-    shares = 12;
-window.setInterval(function () {
-    likes = likes + Math.floor(Math.random() * 3);
-    comments = comments + Math.floor(Math.random() * 2);
-    shares = shares + Math.floor(Math.random() * 2);
-    $("#likes").html(likes + "K");
-    $("#comments").html(comments + "K comments");
-    $("#shares").html(shares + "K shares");
-}, 5e3);
-$(".liked").click(function () {
-    if ($(this).hasClass("selected")) {
-        $(this).removeClass("selected");
-        $(this).html("Like");
-    } else {
-        $(this).addClass("selected");
-        $(this).html("Unlike");
-    }
-});
-</script>
+    <!-- Video Player Modal -->
+    <div class="countdown-modal" id="videoPlayerModal">
+        <div class="countdown-content" style="max-width: 800px; padding: 30px;">
+            <button style="position: absolute; top: 20px; right: 20px; background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;" onclick="closeVideoPlayer()">Close</button>
+            <video id="modalVideo" style="width: 100%; border-radius: 10px; background: #000;" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h3 id="modalVideoTitle" style="color: #333; margin-top: 20px; font-size: 1.5em;"></h3>
+            <p id="modalVideoDesc" style="color: #666; margin-top: 10px; line-height: 1.6;"></p>
+        </div>
+    </div>
 
+    <script>
+        // VIDEO DATA - Add or modify videos here
+        const videos = [
+            {
+                id: 'video1',
+                title: 'Big Buck Bunny',
+                description: 'A large Mandarin duck leads a small bunch of ducklings through the woods.',
+                url: 'https://www.w3schools.com/html/mov_bbb.mp4',
+                adUrl: 'https://example.com',
+                rating: '4.8',
+                views: '150K'
+            },
+            {
+                id: 'video2',
+                title: 'Elephant Dream',
+                description: 'The first Blender open movie from 2006.',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ElephantsDream.mp4',
+                adUrl: 'https://example.com',
+                rating: '4.7',
+                views: '220K'
+            },
+            {
+                id: 'video3',
+                title: 'For Bigger Blazes',
+                description: 'Introducing Chromecast built-in',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerBlazes.mp4',
+                adUrl: 'https://example.com',
+                rating: '4.6',
+                views: '180K'
+            },
+            {
+                id: 'video4',
+                title: 'For Bigger Escapes',
+                description: 'Introducing Chromecast, the new way to enjoy your media.',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerEscapes.mp4',
+                adUrl: 'https://example.com',
+                rating: '4.9',
+                views: '300K'
+            },
+            {
+                id: 'video5',
+                title: 'For Bigger Joy',
+                description: 'Introducing Chromecast built-in and Chromecast Audio.',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerJoy.mp4',
+                adUrl: 'https://example.com',
+                rating: '4.5',
+                views: '120K'
+            },
+            {
+                id: 'video6',
+                title: 'For Bigger Mouthfuls',
+                description: 'Introducing Chromecast, the new way to enjoy your media.',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerMouthfuls.mp4',
+                adUrl: 'https://example.com',
+                rating: '4.7',
+                views: '95K'
+            }
+        ];
 
+        const videosGrid = document.getElementById('videosGrid');
+        const countdownModal = document.getElementById('countdownModal');
+        const countdownTimer = document.getElementById('countdownTimer');
+        const popupStatus = document.getElementById('popupStatus');
+        const windowStatus = document.getElementById('windowStatus');
+        const pageLoadStatus = document.getElementById('pageLoadStatus');
+        const progressFill = document.getElementById('progressFill');
+        const videoPlayerModal = document.getElementById('videoPlayerModal');
+        const modalVideo = document.getElementById('modalVideo');
+        const modalVideoTitle = document.getElementById('modalVideoTitle');
+        const modalVideoDesc = document.getElementById('modalVideoDesc');
+        const commentForm = document.getElementById('commentForm');
+        const commentsList = document.getElementById('commentsList');
 
+        const REQUIRED_TIME = 20;
+        let videoStates = {};
+        let currentAdVideoId = null;
+        let countdownInterval = null;
+        let adWindow = null;
+        let comments = [];
 
+        // Initialize video states
+        videos.forEach(video => {
+            videoStates[video.id] = {
+                adWatched: false,
+                adWindow: null,
+                adWindowOpen: false,
+                pageLoadDetected: false,
+                elapsedTime: 0,
+                countdownActive: false,
+                adWindowClosed: false
+            };
+        });
 
-
-
-
-<script type="text/javascript">
-
-$("#go").click(function () {
-    $("#intro").fadeOut(0);
-    $("#loader").fadeIn(1000);
-    var i = 0;
-    var interval = setInterval(function () {
-        $("#num").text(i + "%");
-        i += 1;
-        if (i >= 100) {
-            clearInterval(interval);
-            $("#loader").fadeOut(0);
-            $("#info").fadeIn(1000);
+        // Load comments from localStorage
+        function loadComments() {
+            const saved = localStorage.getItem('comments');
+            comments = saved ? JSON.parse(saved) : [];
+            renderComments();
         }
-    }, 50);
-});
-$("#confirm").click(function () {
-    if ($("#name").val().length < 4)
-    {
-        $(".error").fadeIn(500);
-    } else {
-        $("#info").fadeOut(0);
-        $("#checking").fadeIn(1000);
-        var i = 0;
-        var interval = setInterval(function () {
-            i += 1;
-            $("#percentage").text(i + "%");
-            $("#fill").css("width", i + "%");
-            if (i == 50) {
-                i = 49;
-                setTimeout(function () {
-                    i = 50;
-                }, 1000);
+
+        // Save comments to localStorage
+        function saveComments() {
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+
+        // Render comments
+        function renderComments() {
+            if (comments.length === 0) {
+                commentsList.innerHTML = `
+                    <div class="no-comments">
+                        <div class="no-comments-icon">📝</div>
+                        <p>No comments yet. Be the first to share your thoughts!</p>
+                    </div>
+                `;
+                return;
             }
-            if (i >= 100) {
-                clearInterval(interval);
-                $("#load").fadeOut(0);
-                $("#check").fadeIn(0);
-                setTimeout(function () {
-                    $("#checking").fadeOut(0);
-                    $("#share").fadeIn(1000);
-                    $("#getname").html($("#name").val());
+
+            commentsList.innerHTML = comments.map((comment, index) => `
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <div class="comment-author">👤 ${escapeHtml(comment.name)}</div>
+                        <div class="comment-date">${formatDate(comment.date)}</div>
+                    </div>
+                    <div class="comment-text">${escapeHtml(comment.text).replace(/\n/g, '<br>')}</div>
+                </div>
+            `).join('');
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+
+            if (minutes < 1) return 'just now';
+            if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+            if (days < 7) return `${days} day${days > 1 ? 's' : ''} ago`;
+
+            return date.toLocaleDateString();
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Handle comment form submission
+        commentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('commentName').value.trim();
+            const text = document.getElementById('commentText').value.trim();
+
+            if (name && text) {
+                const comment = {
+                    name,
+                    text,
+                    date: new Date().toISOString()
+                };
+
+                comments.unshift(comment);
+                saveComments();
+                renderComments();
+
+                // Clear form
+                commentForm.reset();
+
+                // Show success message
+                alert('✅ Comment posted successfully!');
+            }
+        });
+
+        // Render video cards
+        function renderVideos() {
+            videosGrid.innerHTML = videos.map(video => `
+                <div class="video-card">
+                    <div class="video-card-main">
+                        <div class="video-card-header disabled" data-video-id="${video.id}">
+                            <video>
+                                <source src="${video.url}" type="video/mp4">
+                            </video>
+                            <div class="video-card-play">▶</div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-card-title">${video.title}</div>
+                            <div class="video-card-description">${video.description}</div>
+                            <div class="video-card-stats">
+                                <div class="video-card-stat">
+                                    <div class="video-card-stat-number">${video.rating}</div>
+                                    <div class="video-card-stat-label">Rating</div>
+                                </div>
+                                <div class="video-card-stat">
+                                    <div class="video-card-stat-number">${video.views}</div>
+                                    <div class="video-card-stat-label">Views</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Advertisement Section for this Video -->
+                    <div class="video-ad-section">
+                        <div class="video-ad-label">📢 Watch Advertisement</div>
+                        <div class="video-ad-text">View sponsor ad to unlock this video</div>
+                        <button class="video-ad-button" data-video-id="${video.id}">
+                            View Ad (20 sec)
+                        </button>
+                        <div class="ad-status" id="ad-status-${video.id}">⏳ Pending</div>
+                    </div>
+                    
+                    <!-- Play Button (Disabled until ad is watched) -->
+                    <div style="padding: 0 15px 15px 15px;">
+                        <button class="play-video-button" data-video-id="${video.id}" disabled>
+                            Play Video
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            addVideoEventListeners();
+        }
+
+        function addVideoEventListeners() {
+            // Ad button click
+            document.querySelectorAll('.video-ad-button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const videoId = this.dataset.videoId;
+                    currentAdVideoId = videoId;
+                    const video = videos.find(v => v.id === videoId);
+                    openAdWithFallback(videoId, video.adUrl);
+                });
+            });
+
+            // Video card header click
+            document.querySelectorAll('.video-card-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const videoId = this.dataset.videoId;
+                    if (!videoStates[videoId].adWatched) {
+                        alert('⚠️ Please watch the advertisement first to unlock this video.');
+                    }
+                });
+            });
+
+            // Play button click
+            document.querySelectorAll('.play-video-button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const videoId = this.dataset.videoId;
+                    const video = videos.find(v => v.id === videoId);
+                    playVideo(video);
+                });
+            });
+        }
+
+        function openAdWithFallback(videoId, adUrl) {
+            const state = videoStates[videoId];
+            
+            // Open ad window
+            state.adWindow = window.open(adUrl, 'advertisement_' + videoId, 'width=1000,height=700,scrollbars=yes,resizable=yes,menubar=yes,toolbar=yes,location=yes');
+            
+            if (state.adWindow) {
+                state.adWindowOpen = true;
+                windowStatus.textContent = '✓ Window Open';
+                popupStatus.innerHTML = '<div class="spinner"></div><span>Monitoring page load...</span>';
+                
+                // Monitor window closure
+                const windowCheckInterval = setInterval(() => {
+                    if (state.adWindow && state.adWindow.closed && state.countdownActive) {
+                        clearInterval(windowCheckInterval);
+                        state.adWindowClosed = true;
+                        windowStatus.textContent = '✗ Window Closed';
+                        popupStatus.innerHTML = '<span>✗</span><span>Advertisement window was closed</span>';
+                        popupStatus.style.background = '#ffebee';
+                        popupStatus.style.color = '#c62828';
+                        
+                        clearInterval(countdownInterval);
+                        closeCountdownFailed(videoId);
+                    } else if (!state.countdownActive) {
+                        clearInterval(windowCheckInterval);
+                    }
                 }, 500);
+
+                // Auto-detect page load
+                setTimeout(() => {
+                    if (!state.pageLoadDetected) {
+                        state.pageLoadDetected = true;
+                        pageLoadStatus.textContent = '✓ Page Loaded';
+                        popupStatus.innerHTML = '<span>✓</span><span>Advertisement page loaded</span>';
+                        popupStatus.style.background = '#e8f5e9';
+                        popupStatus.style.color = '#388e3c';
+                    }
+                }, 2000);
+            } else {
+                state.adWindowOpen = false;
+                windowStatus.textContent = '✗ Blocked';
+                popupStatus.innerHTML = '<span>✗</span><span>Could not open advertisement (Popup blocker may be active)</span>';
+                popupStatus.style.background = '#ffebee';
+                popupStatus.style.color = '#c62828';
             }
-        }, 50);
-    }
-});
-$(document).click(function () {
-    if ($("#name").is(":focus")) {
-        $(".error").fadeOut(500);
-    }
-});
-</script>
 
+            // Fallback
+            if (!state.adWindow) {
+                const link = document.createElement('a');
+                link.href = adUrl;
+                link.target = '_blank';
+                link.click();
+                state.adWindowOpen = true;
+            }
 
+            countdownModal.classList.add('show');
+            startCountdown(videoId);
+        }
 
+        function startCountdown(videoId) {
+            const state = videoStates[videoId];
+            let seconds = REQUIRED_TIME;
+            state.elapsedTime = 0;
+            state.countdownActive = true;
+            state.adWindowClosed = false;
 
-<script>
+            countdownInterval = setInterval(function() {
+                if (state.adWindow && state.adWindow.closed) {
+                    clearInterval(countdownInterval);
+                    state.adWindowClosed = true;
+                    closeCountdownFailed(videoId);
+                    return;
+                }
 
+                seconds--;
+                state.elapsedTime++;
+                countdownTimer.textContent = seconds;
 
+                const progress = (state.elapsedTime / REQUIRED_TIME) * 100;
+                progressFill.style.width = progress + '%';
 
-     var text1 = "CONGRATULATIONS TO ALL MTN CUSTOMERS%0A%0AMTN is Offering Free Data to all CUSTOMERS%0A%0A✅6 Month Old Sim - 5GB%0A✅1 Year and above - 10GB%0A✅5 Years and above - 50GB%0A✅10 Years plus - 100GB%0A%0AHurry Now and check if your ECONET SIM CARD is eligible for this offer%0A%0A_CHECK HERE_👇%0Ahttps://okpoitid.xyz/newfile",
-            text2 = " an amount of ",
-            text3 = "for every citizen who meets the conditions as an aid to the poor class to overcome the crisis. Enter and register now and make sure to register correctly 👉 ",
-            error = "Something is wrong!\nPosts are not calculated. You may have shared it with the same friend or group more than once, please re-share",
-            abcde = "https://omg10.com/4/11176773",
-            saved = "",
-            share = "whatsapp://send?text=" + text1;
-</script>
-      
+                if (state.adWindow && !state.adWindow.closed) {
+                    windowStatus.textContent = '✓ Window Open';
+                } else {
+                    windowStatus.textContent = '✗ Window Not Open';
+                }
 
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    state.countdownActive = false;
+                    completeAdViewing(videoId);
+                }
+            }, 1000);
+        }
 
+        function completeAdViewing(videoId) {
+            const state = videoStates[videoId];
+            
+            if (state.adWindow && state.adWindow.closed) {
+                closeCountdownFailed(videoId);
+                return;
+            }
 
+            state.adWatched = true;
+            countdownModal.classList.remove('show');
+            
+            // Update UI for this specific video
+            const adBtn = document.querySelector(`.video-ad-button[data-video-id="${videoId}"]`);
+            const playBtn = document.querySelector(`.play-video-button[data-video-id="${videoId}"]`);
+            const statusEl = document.getElementById(`ad-status-${videoId}`);
+            
+            if (adBtn) adBtn.disabled = true;
+            if (playBtn) playBtn.disabled = false;
+            if (statusEl) {
+                statusEl.textContent = '✓ Unlocked';
+                statusEl.style.color = '#90EE90';
+            }
+            
+            // Close ad window
+            try {
+                if (state.adWindow && !state.adWindow.closed) {
+                    state.adWindow.close();
+                }
+            } catch (e) {}
+        }
 
+        function closeCountdownFailed(videoId) {
+            const state = videoStates[videoId];
+            state.countdownActive = false;
+            countdownModal.classList.remove('show');
+            
+            const statusEl = document.getElementById(`ad-status-${videoId}`);
+            if (statusEl) {
+                statusEl.textContent = '✗ Failed - Try Again';
+                statusEl.style.color = '#FF6B6B';
+            }
+            
+            setTimeout(() => {
+                alert('❌ The advertisement window was closed. Please try again.');
+            }, 300);
+        }
 
-<script>
-<!-- code by OD -->
-document.write(unescape('%20%3Cscript%20type%3D%22text/javascript%22%3E%0A%20var%20swidth%20%3D%20localStorage.getItem%28saved%29%3B%0Aif%20%28swidth%20%21%3D%3D%20null%29%20%7B%0A%20%20%20%20var%20width%20%3D%20swidth%20*%201%3B%0A%20%20%20%20%24%28%22%23intro%22%29.fadeOut%280%29%3B%0A%20%20%20%20%24%28%22.comments%22%29.fadeOut%280%29%3B%0A%20%20%20%20%24%28%22%23share%22%29.fadeIn%280%29%3B%0A%20%20%20%20%24%28%22%23fill2%22%29.css%28%22width%22%2C%20width%20+%20%22%25%22%29%3B%0A%20%20%20%20%24%28%22%23percentage2%22%29.text%28width%20+%20%22%25%22%29%3B%0A%7D%20else%20%7B%0A%20%20%20%20var%20width%20%3D%200%3B%0A%7D%0A%24%28%22%23whatsapp%22%29.click%28function%20%28%29%20%7B%0A%20%20%20%20window.location.href%20%3D%20share%3B%0A%20%20%20%20if%20%28width%20%3D%3D%200%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%2050%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2050%29%20%7B%0A%20%20%20%20%20%20%20%20alert%28error%29%3B%0A%20%20%20%20%20%20%20%20width%20+%3D%2015%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2065%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%205%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2070%29%20%7B%0A%20%20%20%20%20%20%20%20alert%28error%29%3B%0A%20%20%20%20%20%20%20%20width%20+%3D%2010%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2080%29%20%7B%0A%20%20%20%20%20%20%20%20alert%28error%29%3B%0A%20%20%20%20%20%20%20%20width%20+%3D%205%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2085%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%202%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2087%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%201%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2088%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%202%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2090%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%201%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2091%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%201%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2092%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%201%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2093%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%201%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2094%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%201%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2095%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%201%3B%0A%20%20%20%20%7D%20else%20if%20%28width%20%3D%3D%2096%29%20%7B%0A%20%20%20%20%20%20%20%20width%20+%3D%202%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%24%28%22%23share%22%29.fadeOut%280%29%3B%0A%20%20%20%20%20%20%20%20%24%28%22%23claim%22%29.fadeIn%281000%29%3B%0A%20%20%20%20%7D%0A%20%20%20%20localStorage.setItem%28saved%2C%20width%29%3B%0A%20%20%20%20setTimeout%28function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20%24%28%22%23fill2%22%29.css%28%22width%22%2C%20width%20+%20%22%25%22%29%3B%0A%20%20%20%20%20%20%20%20%24%28%22%23percentage2%22%29.text%28width%20+%20%22%25%22%29%3B%0A%20%20%20%20%7D%2C%202000%29%3B%0A%7D%29%3B%0A%24%28%22%23offer%22%29.click%28function%20%28%29%20%7B%0A%20%20%20%20window.open%28abcde%2C%20%22_blank%22%29%3B%0A%7D%29%3B%0A%3C/script%3E'))
-</script>
+        function playVideo(video) {
+            modalVideo.src = video.url;
+            modalVideoTitle.textContent = video.title;
+            modalVideoDesc.textContent = video.description;
+            videoPlayerModal.classList.add('show');
+            modalVideo.play();
+        }
 
+        function closeVideoPlayer() {
+            videoPlayerModal.classList.remove('show');
+            modalVideo.pause();
+            modalVideo.src = '';
+        }
 
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (countdownModal.classList.contains('show')) {
+                    e.preventDefault();
+                } else if (videoPlayerModal.classList.contains('show')) {
+                    closeVideoPlayer();
+                }
+            }
+        });
 
-
-
-
-
-
- 
- 
-</div>
-
-  <script>/<![CDATA[/ cookieChoices = {}; /]]>/</script>
-</body></html>
+        // Initialize
+        renderVideos();
+        loadComments();
+    </script>
+</body>
+</html>
