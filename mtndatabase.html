@@ -894,7 +894,7 @@
     <div class="countdown-modal" id="countdownModal">
         <div class="countdown-content">
             <div class="countdown-message">📺 Advertisement Viewing Time</div>
-            <div class="countdown-timer" id="countdownTimer">20</div>
+            <div class="countdown-timer" id="countdownTimer">15</div>
             <div class="countdown-text">seconds remaining</div>
             
             <div class="stats-grid">
@@ -989,7 +989,7 @@
         const commentForm = document.getElementById('commentForm');
         const commentsList = document.getElementById('commentsList');
 
-        const REQUIRED_TIME = 20;
+        const REQUIRED_TIME = 15;
         let videoStates = {};
         let currentAdVideoId = null;
         let countdownInterval = null;
@@ -1117,7 +1117,7 @@
                     <div class="video-ad-section">
                         <div class="video-ad-text">View sponsor ad to unlock this video</div>
                         <button class="video-ad-button" data-video-id="${video.id}">
-                            View Ad (20 sec)
+                            View Ad (15 sec)
                         </button>
                         <div class="ad-status" id="ad-status-${video.id}">⏳ Pending</div>
                     </div>
