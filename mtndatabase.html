@@ -414,6 +414,193 @@
             color: #1976d2;
         }
 
+        /* Video Player Modal */
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .video-player-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-player-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .video-overlay.active {
+            opacity: 1;
+        }
+
+        .video-play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .video-play-button:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .video-player-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .video-player-modal.show {
+            display: flex;
+        }
+
+        .video-player-content {
+            background: #000;
+            border-radius: 15px;
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-player-header {
+            position: relative;
+            padding: 20px;
+        }
+
+        .video-player-header button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 20;
+        }
+
+        .video-player-header button:hover {
+            background: #764ba2;
+        }
+
+        .full-video-container {
+            position: relative;
+            width: 100%;
+            background: #000;
+        }
+
+        .full-video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .full-video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .modal-play-overlay.active {
+            opacity: 1;
+        }
+
+        .modal-play-button {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 11;
+        }
+
+        .modal-play-button:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .video-info-modal {
+            padding: 20px;
+            background: #1a1a1a;
+        }
+
+        .video-title-modal {
+            color: #fff;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
         /* Comments Section */
         .comments-section {
             margin-top: 40px;
@@ -924,14 +1111,22 @@
     </div>
 
     <!-- Video Player Modal -->
-    <div class="countdown-modal" id="videoPlayerModal">
-        <div class="countdown-content" style="max-width: 800px; padding: 20px;">
-            <button style="position: absolute; top: 15px; right: 15px; background: #667eea; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 14px;" onclick="closeVideoPlayer()">Close</button>
-            <video id="modalVideo" style="width: 100%; border-radius: 10px; background: #000;" controls>
-                <source src="" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <h3 id="modalVideoTitle" style="color: #333; margin-top: 15px; font-size: 1.3em;"></h3>
+    <div class="video-player-modal" id="videoPlayerModal">
+        <div class="video-player-content">
+            <div class="video-player-header">
+                <button onclick="closeVideoPlayer()">Close</button>
+            </div>
+            <div class="full-video-container">
+                <div class="full-video-wrapper">
+                    <video id="modalVideo"></video>
+                    <div class="modal-play-overlay" id="modalPlayOverlay">
+                        <button class="modal-play-button" id="modalPlayBtn" onclick="toggleVideoPlayback()">▶</button>
+                    </div>
+                </div>
+            </div>
+            <div class="video-info-modal">
+                <div class="video-title-modal" id="modalVideoTitle"></div>
+            </div>
         </div>
     </div>
 
@@ -986,6 +1181,8 @@
         const videoPlayerModal = document.getElementById('videoPlayerModal');
         const modalVideo = document.getElementById('modalVideo');
         const modalVideoTitle = document.getElementById('modalVideoTitle');
+        const modalPlayBtn = document.getElementById('modalPlayBtn');
+        const modalPlayOverlay = document.getElementById('modalPlayOverlay');
         const commentForm = document.getElementById('commentForm');
         const commentsList = document.getElementById('commentsList');
 
@@ -1310,14 +1507,72 @@
             modalVideo.src = video.url;
             modalVideoTitle.textContent = video.title;
             videoPlayerModal.classList.add('show');
+            
+            // Auto-play the video
             modalVideo.play();
+            updatePlayButton();
+            hidePlayOverlay();
+
+            // Update play button when video is played/paused
+            modalVideo.addEventListener('play', updatePlayButton);
+            modalVideo.addEventListener('pause', updatePlayButton);
+            
+            // Show overlay on pause
+            modalVideo.addEventListener('pause', showPlayOverlay);
+            modalVideo.addEventListener('play', hidePlayOverlay);
+        }
+
+        function toggleVideoPlayback() {
+            if (modalVideo.paused) {
+                modalVideo.play();
+                hidePlayOverlay();
+            } else {
+                modalVideo.pause();
+                showPlayOverlay();
+            }
+        }
+
+        function updatePlayButton() {
+            if (modalVideo.paused) {
+                modalPlayBtn.textContent = '▶';
+            } else {
+                modalPlayBtn.textContent = '⏸';
+            }
+        }
+
+        function showPlayOverlay() {
+            modalPlayOverlay.classList.add('active');
+        }
+
+        function hidePlayOverlay() {
+            modalPlayOverlay.classList.remove('active');
         }
 
         function closeVideoPlayer() {
             videoPlayerModal.classList.remove('show');
             modalVideo.pause();
             modalVideo.src = '';
+            modalPlayOverlay.classList.remove('active');
         }
+
+        // Show play overlay on mouse move when video is playing
+        modalVideo.addEventListener('mousemove', function() {
+            if (!modalVideo.paused) {
+                showPlayOverlay();
+                clearTimeout(this.overlayTimeout);
+                this.overlayTimeout = setTimeout(() => {
+                    if (!modalVideo.paused) {
+                        hidePlayOverlay();
+                    }
+                }, 3000);
+            }
+        });
+
+        // Click on overlay to toggle play/pause
+        modalPlayOverlay.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleVideoPlayback();
+        });
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
