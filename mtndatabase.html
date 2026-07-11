@@ -214,6 +214,29 @@
             font-weight: bold;
         }
 
+        .play-video-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .play-video-button:hover:not(:disabled) {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .play-video-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
         /* Advertisement Section Attached to Video */
         .video-ad-section {
             padding: 12px;
@@ -269,29 +292,6 @@
 
         .ad-status.completed {
             color: #90EE90;
-        }
-
-        .play-video-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            font-weight: bold;
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .play-video-button:hover:not(:disabled) {
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .play-video-button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
         }
 
         /* Countdown Modal */
@@ -1121,6 +1121,9 @@
                         <div class="video-info">
                             <div class="video-card-title">${video.title}</div>
                         </div>
+                        <button class="play-video-button" data-video-id="${video.id}" disabled>
+                            Play Video
+                        </button>
                     </div>
                     
                     <!-- Advertisement Section for this Video -->
@@ -1131,13 +1134,6 @@
                             View Ad (20 sec)
                         </button>
                         <div class="ad-status" id="ad-status-${video.id}">⏳ Pending</div>
-                    </div>
-                    
-                    <!-- Play Button (Disabled until ad is watched) -->
-                    <div style="padding: 0 12px 12px 12px;">
-                        <button class="play-video-button" data-video-id="${video.id}" disabled>
-                            Play Video
-                        </button>
                     </div>
                 </div>
             `).join('');
