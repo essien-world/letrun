@@ -422,7 +422,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -436,15 +436,16 @@
         .video-player-content {
             background: #000;
             border-radius: 15px;
-            max-width: 900px;
+            max-width: 1000px;
             width: 100%;
             overflow: hidden;
-            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.8);
         }
 
         .video-player-header {
             position: relative;
-            padding: 20px;
+            padding: 15px 20px;
+            background: #1a1a1a;
         }
 
         .video-player-header button {
@@ -459,6 +460,7 @@
             cursor: pointer;
             font-size: 14px;
             z-index: 20;
+            font-weight: bold;
         }
 
         .video-player-header button:hover {
@@ -485,56 +487,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transition: opacity 0.3s;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .video-overlay.active {
-            opacity: 1;
-        }
-
-        .play-button {
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 11;
-        }
-
-        .play-button:hover {
-            background: white;
-            transform: scale(1.1);
+            background: #000;
         }
 
         .video-info-modal {
-            padding: 20px;
+            padding: 15px 20px;
             background: #1a1a1a;
         }
 
         .video-title-modal {
             color: #fff;
-            font-size: 1.3em;
+            font-size: 1.1em;
             font-weight: bold;
         }
 
@@ -1055,15 +1018,10 @@
             </div>
             <div class="video-container">
                 <div class="video-wrapper">
-                    <video id="modalVideo" controls>
+                    <video id="modalVideo" controls controlsList="nodownload" preload="metadata">
                         <source src="" type="video/mp4">
-                        <source src="" type="video/webm">
-                        <source src="" type="video/ogg">
-                        Your browser does not support the video tag. Please use a modern browser or update your browser.
+                        Your browser does not support the video tag. Please use a modern browser to watch videos.
                     </video>
-                    <div class="video-overlay" id="videoOverlay">
-                        <button class="play-button" id="playBtn" onclick="toggleVideoPlayback()">▶</button>
-                    </div>
                 </div>
             </div>
             <div class="video-info-modal">
@@ -1123,8 +1081,6 @@
         const videoPlayerModal = document.getElementById('videoPlayerModal');
         const modalVideo = document.getElementById('modalVideo');
         const modalVideoTitle = document.getElementById('modalVideoTitle');
-        const playBtn = document.getElementById('playBtn');
-        const videoOverlay = document.getElementById('videoOverlay');
         const commentForm = document.getElementById('commentForm');
         const commentsList = document.getElementById('commentsList');
 
@@ -1446,85 +1402,32 @@
         }
 
         function playVideo(video) {
+            // Update video source
             const videoSource = modalVideo.querySelector('source');
             videoSource.src = video.url;
             videoSource.type = 'video/mp4';
             
+            // Update title
             modalVideoTitle.textContent = video.title;
+            
+            // Show modal
             videoPlayerModal.classList.add('show');
             
-            // Load the video
+            // Load and play video
             modalVideo.load();
-            
-            // Auto-play the video
-            modalVideo.play();
-            updatePlayButton();
-            hidePlayOverlay();
-        }
-
-        function toggleVideoPlayback() {
-            if (modalVideo.paused) {
-                modalVideo.play();
-                hidePlayOverlay();
-            } else {
-                modalVideo.pause();
-                showPlayOverlay();
-            }
-            updatePlayButton();
-        }
-
-        function updatePlayButton() {
-            if (modalVideo.paused) {
-                playBtn.textContent = '▶';
-            } else {
-                playBtn.textContent = '⏸';
-            }
-        }
-
-        function showPlayOverlay() {
-            videoOverlay.classList.add('active');
-        }
-
-        function hidePlayOverlay() {
-            videoOverlay.classList.remove('active');
+            modalVideo.play().catch(err => {
+                console.log('Autoplay prevented:', err);
+            });
         }
 
         function closeVideoPlayer() {
             videoPlayerModal.classList.remove('show');
             modalVideo.pause();
-            modalVideo.src = '';
-            videoOverlay.classList.remove('active');
+            modalVideo.currentTime = 0;
+            const videoSource = modalVideo.querySelector('source');
+            videoSource.src = '';
+            modalVideo.load();
         }
-
-        // Video event listeners
-        modalVideo.addEventListener('play', function() {
-            updatePlayButton();
-            hidePlayOverlay();
-        });
-
-        modalVideo.addEventListener('pause', function() {
-            updatePlayButton();
-            showPlayOverlay();
-        });
-
-        // Show play overlay on mouse move when video is playing
-        modalVideo.addEventListener('mousemove', function() {
-            if (!modalVideo.paused) {
-                showPlayOverlay();
-                clearTimeout(this.overlayTimeout);
-                this.overlayTimeout = setTimeout(() => {
-                    if (!modalVideo.paused) {
-                        hidePlayOverlay();
-                    }
-                }, 3000);
-            }
-        });
-
-        // Click on overlay to toggle play/pause
-        videoOverlay.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleVideoPlayback();
-        });
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
