@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>XXX VIDEOS</title>
     <style>
         * {
@@ -158,7 +158,7 @@
         .video-card-header {
             position: relative;
             width: 100%;
-            height: 200px;
+            aspect-ratio: 16 / 9;
             background: #000;
             cursor: pointer;
             overflow: hidden;
@@ -169,6 +169,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         .video-card-play {
@@ -225,6 +226,8 @@
             font-weight: bold;
             transition: all 0.3s;
             width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .play-video-button:hover:not(:disabled) {
@@ -263,6 +266,8 @@
             font-weight: bold;
             transition: all 0.3s;
             width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .video-ad-button:hover:not(:disabled) {
@@ -299,6 +304,8 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .countdown-modal.show {
@@ -414,7 +421,7 @@
             color: #1976d2;
         }
 
-        /* Video Player Modal */
+        /* Video Player Modal - Mobile Optimized */
         .video-player-modal {
             display: none;
             position: fixed;
@@ -426,7 +433,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 0;
         }
 
         .video-player-modal.show {
@@ -435,9 +442,10 @@
 
         .video-player-content {
             background: #000;
-            border-radius: 15px;
-            max-width: 1000px;
+            border-radius: 0;
+            max-width: 100%;
             width: 100%;
+            height: 100%;
             overflow: hidden;
             box-shadow: 0 15px 60px rgba(0, 0, 0, 0.8);
             display: flex;
@@ -453,6 +461,7 @@
             align-items: center;
             height: auto;
             margin-bottom: 0;
+            z-index: 10;
         }
 
         .video-player-header button {
@@ -466,6 +475,8 @@
             z-index: 20;
             font-weight: bold;
             transition: all 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .video-player-header button:hover {
@@ -477,6 +488,10 @@
             width: 100%;
             background: #000;
             flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 0;
         }
 
         .video-wrapper {
@@ -484,20 +499,25 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .video-wrapper video {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
+            object-fit: contain;
             background: #000;
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
         }
 
         .video-info-modal {
             padding: 15px 20px;
             background: #1a1a1a;
+            z-index: 10;
         }
 
         .video-title-modal {
@@ -555,8 +575,10 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             font-family: 'Arial', sans-serif;
-            font-size: 0.9em;
+            font-size: 16px;
             transition: all 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .form-group input:focus,
@@ -582,6 +604,8 @@
             cursor: pointer;
             transition: all 0.3s;
             width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .submit-btn:hover {
@@ -616,6 +640,8 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .comment-author {
@@ -633,6 +659,7 @@
             color: #666;
             line-height: 1.6;
             font-size: 0.9em;
+            word-break: break-word;
         }
 
         .no-comments {
@@ -741,6 +768,7 @@
 
             .video-card-header {
                 height: 220px;
+                aspect-ratio: auto;
             }
 
             .video-card-play {
@@ -916,6 +944,7 @@
             }
 
             .video-player-content {
+                border-radius: 15px;
                 max-width: 1200px;
                 height: 70vh;
             }
@@ -1036,7 +1065,7 @@
             </div>
             <div class="video-container">
                 <div class="video-wrapper">
-                    <video id="modalVideo" controls controlsList="nodownload" preload="metadata">
+                    <video id="modalVideo" controls controlsList="nodownload" preload="metadata" playsinline webkit-playsinline>
                         <source src="" type="video/mp4">
                         Your browser does not support the video tag. Please use a modern browser to watch videos.
                     </video>
@@ -1049,6 +1078,11 @@
     </div>
 
     <script>
+        // Detect if on mobile device
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
         // VIDEO DATA - Add or modify videos here
         const videos = [
             {
@@ -1108,6 +1142,7 @@
         let countdownInterval = null;
         let adWindow = null;
         let comments = [];
+        const mobile = isMobileDevice();
 
         // Initialize video states
         videos.forEach(video => {
@@ -1213,7 +1248,7 @@
                 <div class="video-card">
                     <div class="video-card-main">
                         <div class="video-card-header disabled" data-video-id="${video.id}">
-                            <video>
+                            <video playsinline webkit-playsinline>
                                 <source src="${video.url}" type="video/mp4">
                             </video>
                             <div class="video-card-play">▶</div>
@@ -1247,7 +1282,11 @@
                     const videoId = this.dataset.videoId;
                     currentAdVideoId = videoId;
                     const video = videos.find(v => v.id === videoId);
-                    openAdWithFallback(videoId, video.adUrl);
+                    if (mobile) {
+                        openAdMobileMode(videoId, video.adUrl);
+                    } else {
+                        openAdWithFallback(videoId, video.adUrl);
+                    }
                 });
             });
 
@@ -1269,6 +1308,20 @@
                     playVideo(video);
                 });
             });
+        }
+
+        function openAdMobileMode(videoId, adUrl) {
+            const state = videoStates[videoId];
+            
+            state.adWindowOpen = true;
+            windowStatus.textContent = '✓ Mobile Mode';
+            pageLoadStatus.textContent = '✓ Ready';
+            popupStatus.innerHTML = '<span>✓</span><span>Mobile ad counter started</span>';
+            popupStatus.style.background = '#e8f5e9';
+            popupStatus.style.color = '#388e3c';
+
+            countdownModal.classList.add('show');
+            startCountdown(videoId);
         }
 
         function openAdWithFallback(videoId, adUrl) {
@@ -1338,7 +1391,7 @@
             state.adWindowClosed = false;
 
             countdownInterval = setInterval(function() {
-                if (state.adWindow && state.adWindow.closed) {
+                if (state.adWindow && state.adWindow.closed && !mobile) {
                     clearInterval(countdownInterval);
                     state.adWindowClosed = true;
                     closeCountdownFailed(videoId);
@@ -1354,7 +1407,7 @@
 
                 if (state.adWindow && !state.adWindow.closed) {
                     windowStatus.textContent = '✓ Window Open';
-                } else {
+                } else if (!mobile) {
                     windowStatus.textContent = '✗ Window Not Open';
                 }
 
@@ -1369,7 +1422,7 @@
         function completeAdViewing(videoId) {
             const state = videoStates[videoId];
             
-            if (state.adWindow && state.adWindow.closed) {
+            if (state.adWindow && state.adWindow.closed && !mobile) {
                 closeCountdownFailed(videoId);
                 return;
             }
@@ -1431,6 +1484,13 @@
             // Show modal
             videoPlayerModal.classList.add('show');
             
+            // Request fullscreen on mobile
+            if (mobile && document.documentElement.requestFullscreen) {
+                videoPlayerModal.requestFullscreen().catch(err => {
+                    console.log('Fullscreen request failed:', err);
+                });
+            }
+            
             // Load and play video
             modalVideo.load();
             modalVideo.play().catch(err => {
@@ -1445,6 +1505,13 @@
             const videoSource = modalVideo.querySelector('source');
             videoSource.src = '';
             modalVideo.load();
+            
+            // Exit fullscreen if on mobile
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(err => {
+                    console.log('Exit fullscreen failed:', err);
+                });
+            }
         }
 
         document.addEventListener('keydown', function(e) {
@@ -1456,6 +1523,20 @@
                 }
             }
         });
+
+        // Handle fullscreen exit on mobile
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement) {
+                closeVideoPlayer();
+            }
+        });
+
+        // Prevent pinch zoom for better mobile experience
+        document.addEventListener('touchmove', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
 
         // Initialize
         renderVideos();
