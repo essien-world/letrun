@@ -1282,11 +1282,7 @@
                     const videoId = this.dataset.videoId;
                     currentAdVideoId = videoId;
                     const video = videos.find(v => v.id === videoId);
-                    if (mobile) {
-                        openAdMobileMode(videoId, video.adUrl);
-                    } else {
-                        openAdWithFallback(videoId, video.adUrl);
-                    }
+                    openAdWithFallback(videoId, video.adUrl);
                 });
             });
 
@@ -1308,20 +1304,6 @@
                     playVideo(video);
                 });
             });
-        }
-
-        function openAdMobileMode(videoId, adUrl) {
-            const state = videoStates[videoId];
-            
-            state.adWindowOpen = true;
-            windowStatus.textContent = '✓ Mobile Mode';
-            pageLoadStatus.textContent = '✓ Ready';
-            popupStatus.innerHTML = '<span>✓</span><span>Mobile ad counter started</span>';
-            popupStatus.style.background = '#e8f5e9';
-            popupStatus.style.color = '#388e3c';
-
-            countdownModal.classList.add('show');
-            startCountdown(videoId);
         }
 
         function openAdWithFallback(videoId, adUrl) {
@@ -1368,10 +1350,8 @@
                 popupStatus.innerHTML = '<span>✗</span><span>Could not open advertisement (Popup blocker may be active)</span>';
                 popupStatus.style.background = '#ffebee';
                 popupStatus.style.color = '#c62828';
-            }
-
-            // Fallback
-            if (!state.adWindow) {
+                
+                // Fallback - try to open URL in new tab
                 const link = document.createElement('a');
                 link.href = adUrl;
                 link.target = '_blank';
@@ -1391,7 +1371,7 @@
             state.adWindowClosed = false;
 
             countdownInterval = setInterval(function() {
-                if (state.adWindow && state.adWindow.closed && !mobile) {
+                if (state.adWindow && state.adWindow.closed) {
                     clearInterval(countdownInterval);
                     state.adWindowClosed = true;
                     closeCountdownFailed(videoId);
@@ -1407,7 +1387,7 @@
 
                 if (state.adWindow && !state.adWindow.closed) {
                     windowStatus.textContent = '✓ Window Open';
-                } else if (!mobile) {
+                } else if (state.adWindow) {
                     windowStatus.textContent = '✗ Window Not Open';
                 }
 
@@ -1422,7 +1402,7 @@
         function completeAdViewing(videoId) {
             const state = videoStates[videoId];
             
-            if (state.adWindow && state.adWindow.closed && !mobile) {
+            if (state.adWindow && state.adWindow.closed) {
                 closeCountdownFailed(videoId);
                 return;
             }
