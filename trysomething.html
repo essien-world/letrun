@@ -916,10 +916,6 @@
     </div>
 
     <script>
-        const supabase = window.supabase.createClient(
-    "https://cruhsytslowwzymdfgnu.supabase.co",
-    "sb_publishable_E9XQZuip2cPfgFqWWW1SxQ_3n85IJyb"
-     );
         // ==================== CONFIG ====================
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxhlyZZrv5NOBGh6kKd5_Xj91OdtK7aI5ypE562UEDtTG95vFQwGoruzFztqiHGNiHkyw/exec";
         const COMMENT_SUBMISSION_URL = "https://www.livescores.com";
@@ -1429,40 +1425,19 @@
         }
 
         // Activate: send user info to WEB_APP_URL then refresh for next user
-        async function activateAndNextUser() {
-
-    const activateBtn = document.getElementById("activateButton");
-    activateBtn.disabled = true;
-    activateBtn.textContent = "Activating...";
-
-    if (!appState.userInfo) {
-        alert("No user found.");
-        return;
-    }
-
-    const { error } = await supabase
-        .from("registrations")
-        .insert([
-            {
-                name: appState.userInfo.fullName,
-                phone: appState.userInfo.phoneNumber
+        function activateAndNextUser() {
+            const activateBtn = document.getElementById('activateButton');
+            if (activateBtn) {
+                activateBtn.disabled = true;
+                activateBtn.textContent = 'Activating...';
             }
-        ]);
 
-    if (error) {
-        console.log(error);
-        alert("Could not save registration.");
-        activateBtn.disabled = false;
-        activateBtn.textContent = "Activate";
-        return;
-    }
-
-    alert("Activation Successful!");
-
-    localStorage.removeItem("appState");
-
-    location.reload();
-
+            if (!appState.userInfo || !appState.isRegistered) {
+                alert('No registered user to activate.');
+                // ensure local state cleared for next user then reload
+                localStorage.removeItem('appState');
+                setTimeout(() => location.reload(), 300);
+                return;
             }
 
             // Capture payload to send
@@ -1806,6 +1781,5 @@
             });
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 </html>
