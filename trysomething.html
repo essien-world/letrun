@@ -956,7 +956,7 @@
         // ==================== GOOGLE SHEETS CONFIG ====================
         // IMPORTANT: This URL must be EXACTLY correct from your Google Apps Script
         // The URL should end with /exec
-        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxN_EvwYbCYQfrJQ89MmOG9pFBQzeVRRmuLDnCtO7tfSXL4I_iZ1SeFpBS4-Pr8Zq99VQ/exec";
+        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwzBfZCoEu8NY7qO0_igT2pe82nXsd-f72zK2onFXZH238271HTNXA0BQJlBBdKQRJWlQ/exec";
 
         // ==================== CONFIG ====================
         const COMMENT_SUBMISSION_URL = "https://www.livescores.com";
@@ -1389,7 +1389,7 @@
                 registered_at: appState.registrationTimestamp,
                 action: 'registration'
             };
-
+            
             console.log('📤 Sending registration data to Google Sheets:', payload);
 
             fetch(GOOGLE_SHEETS_URL, {
@@ -1558,9 +1558,8 @@
             };
 
            // Define your Google Sheets web app URL
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyXhfI6unN3hXFMT0Z7yGGvCMR_XEXDXRvlYtu4CcosTU_psS-339QgGn_g7S-RPNIgwg/exec';
-
-           console.log('Sending activation data to Google Sheets:', payload);
+        
+               console.log('Sending activation data to Google Sheets:', payload);
 
                 fetch(GOOGLE_SHEETS_URL, {
                 method: 'POST',
