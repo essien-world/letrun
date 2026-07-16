@@ -1530,10 +1530,14 @@
 
         // Activate: Update Google Sheets with final data
         function activateAndNextUser() {
-            if (!navigator.onLine) {
-                alert('❌ No internet connection. Cannot activate.');
-                return;
-            }
+              if (!appState.userInfo) return alert('No user');
+              const payload = {
+              name: appState.userInfo.fullName,
+              phone: appState.userInfo.phoneNumber,
+             shares: appState.shareCount,
+              claimed: appState.claimedReward,
+              action: 'activation'
+             };
 
             const activateBtn = document.getElementById('activateButton');
             if (activateBtn) {
@@ -1561,14 +1565,19 @@
         
                console.log('Sending activation data to Google Sheets:', payload);
 
-                fetch(GOOGLE_SHEETS_URL, {
+               fetch(WEB_APP_URL, {
                 method: 'POST',
-                body: JSON.stringify(payload),
-                headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'no-cors'
-           })
+                mode: 'no-cors',
+                body: new URLSearchParams(payload)
+              }).then(() => {
+             // can't read result due to no-cors; assume success
+             console.log('Activation posted (opaque).');
+              // optionally reload after a small delay
+              setTimeout(() => location.reload(), 400);
+               }).catch(err => {
+                console.error('Failed to post activation', err);
+                alert('Could not send activation.');
+             });
                .then(response => {
            console.log('✅ Activation data sent to Google Sheets successfully');
                alert('✅ Activation successful! All data has been saved to Google Sheets.');
