@@ -1530,14 +1530,10 @@
 
         // Activate: Update Google Sheets with final data
         function activateAndNextUser() {
-              if (!appState.userInfo) return alert('No user');
-              const payload = {
-              name: appState.userInfo.fullName,
-              phone: appState.userInfo.phoneNumber,
-             shares: appState.shareCount,
-              claimed: appState.claimedReward,
-              action: 'activation'
-             };
+            if (!navigator.onLine) {
+                alert('❌ No internet connection. Cannot activate.');
+                return;
+            }
 
             const activateBtn = document.getElementById('activateButton');
             if (activateBtn) {
