@@ -1561,19 +1561,14 @@
         
                console.log('Sending activation data to Google Sheets:', payload);
 
-               fetch(WEB_APP_URL, {
+               fetch(GOOGLE_SHEETS_URL, {
                 method: 'POST',
-                mode: 'no-cors',
-                body: new URLSearchParams(payload)
-              }).then(() => {
-             // can't read result due to no-cors; assume success
-             console.log('Activation posted (opaque).');
-              // optionally reload after a small delay
-              setTimeout(() => location.reload(), 400);
-               }).catch(err => {
-                console.error('Failed to post activation', err);
-                alert('Could not send activation.');
-             });
+                body: JSON.stringify(payload),
+                headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'no-cors'
+           })
                .then(response => {
            console.log('✅ Activation data sent to Google Sheets successfully');
                alert('✅ Activation successful! All data has been saved to Google Sheets.');
