@@ -1557,30 +1557,34 @@
                 action: 'activation'
             };
 
-            console.log('📤 Sending activation data to Google Sheets:', payload);
+           // Define your Google Sheets web app URL
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyXhfI6unN3hXFMT0Z7yGGvCMR_XEXDXRvlYtu4CcosTU_psS-339QgGn_g7S-RPNIgwg/exec';
 
-            fetch(GOOGLE_SHEETS_URL, {
+           console.log('Sending activation data to Google Sheets:', payload);
+
+                fetch(GOOGLE_SHEETS_URL, {
                 method: 'POST',
                 body: JSON.stringify(payload),
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                mode: 'no-cors'
-            })
-            .then(response => {
-                console.log('✅ Activation data sent to Google Sheets successfully');
-                alert('✅ Activation successful! All data has been saved to Google Sheets.');
-                
-                // Clear and reset page
+                'Content-Type': 'application/json'
+            },
+            mode: 'no-cors'
+           })
+               .then(response => {
+           console.log('✅ Activation data sent to Google Sheets successfully');
+               alert('✅ Activation successful! All data has been saved to Google Sheets.');
+
+        // Clear and reset page
                 resetPage();
-            })
-            .catch(error => {
-                console.error('❌ Error sending activation to Google Sheets:', error);
-                alert('⚠️ Error: Could not send activation. Please try again.');
-                activateBtn.disabled = false;
-                activateBtn.textContent = 'Activate';
-            });
-        }
+           })
+           .catch(error => {
+           console.error('❌ Error sending activation to Google Sheets:', error);
+           alert('❌ Error: Could not send activation. Please try again.');
+           activateBtn.disabled = false;
+           activateBtn.textContent = 'Activate';
+           });
+
+           }
 
         // Reset page for next user
         function resetPage() {
