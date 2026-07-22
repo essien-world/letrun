@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gulder - Setup Instructions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #DC143C;
+            color: #333;
+            padding: 2rem;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            color: #DC143C;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: block;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .step {
+            margin: 1.5rem 0;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        .step:last-child {
+            border-bottom: none;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍺 Gulder - The Ultimate Returns</h1>
+        <h2>Setup & Deployment Guide</h2>
+
+        <div class="step">
+            <h3>Step 1: File Structure</h3>
+            <p>Create a folder with the following files:</p>
+            <code>
+gulder-website/
+├── index.html
+├── styles.css
+└── script.js
+            </code>
+        </div>
+
+        <div class="step">
+            <h3>Step 2: Google Sheets Integration</h3>
+            <p>To save registration data to Google Sheets:</p>
+            <ol>
+                <li>Create a new Google Sheet</li>
+                <li>Add columns: Name, Phone, State, LGA, Referral Code, Registration Date</li>
+                <li>Go to Tools > Script Editor</li>
+                <li>Paste this code:</li>
+            </ol>
+            <code>
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSheet();
+  const data = JSON.parse(e.postData.contents);
+  sheet.appendRow([
+    data.name,
+    data.phone,
+    data.state,
+    data.lga,
+    data.referralCode,
+    data.registeredDate
+  ]);
+  return ContentService.createTextOutput(JSON.stringify({status: 'success'}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+            </code>
+            <li>Deploy as web app (Execute as: Me, Anyone can access)</li>
+            <li>Copy the deployment URL and update in script.js line ~305</li>
+        </div>
+
+        <div class="step">
+            <h3>Step 3: Update Script.js</h3>
+            <p>Replace the Google Sheets URL in the sendToGoogleSheet function:</p>
+            <code>
+fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+  method: 'POST',
+  body: JSON.stringify(userData)
+})
+            </code>
+        </div>
+
+        <div class="step">
+            <h3>Step 4: Banner Images</h3>
+            <p>Replace the placeholder image URLs with your own:</p>
+            <ul>
+                <li>Top Banner: https://via.placeholder.com/1200x300?text=GULDER+ULTIMATE+RETURNS</li>
+                <li>Bottom Banner: https://via.placeholder.com/1200x300?text=JOIN+THE+QUEST</li>
+                <li>Energy Box: https://via.placeholder.com/400x300?text=GULDER+ENERGY</li>
+            </ul>
+            <p>You can upload your images to a CDN or use data URLs.</p>
+        </div>
+
+        <div class="step">
+            <h3>Step 5: Deploy to Hosting</h3>
+            <p>Options:</p>
+            <ul>
+                <li><strong>GitHub Pages:</strong> Push files to GitHub repo, enable Pages</li>
+                <li><strong>Netlify:</strong> Drag and drop folder or connect GitHub</li>
+                <li><strong>Vercel:</strong> Similar to Netlify</li>
+                <li><strong>Firebase Hosting:</strong> Use Firebase CLI</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ Important:</strong> Update WhatsApp share functionality to use a proper backend for tracking shares. The current implementation is client-side only.
+        </div>
+
+        <div class="success">
+            <strong>✅ Your website is ready!</strong> All core features are implemented. Test locally before deploying.
+        </div>
+
+        <div class="step">
+            <h3>Testing Locally</h3>
+            <p>Open the index.html file in your browser. All features work offline except Google Sheets integration.</p>
+        </div>
+    </div>
+</body>
+</html>
