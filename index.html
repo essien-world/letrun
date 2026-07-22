@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gulder - The Ultimate Returns</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Menu Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🍺 GULDER</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#" class="nav-link" id="loginBtn">Login</a></li>
+                <li><a href="#" class="nav-link" id="pointsBtn">Check Your Points</a></li>
+                <li><a href="#" class="nav-link" id="faqBtn">FAQ</a></li>
+            </ul>
+            <div id="userInfo" class="user-info" style="display:none;">
+                <span id="userName"></span> | <span id="userPhone"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Top Banner -->
+        <section class="banner-top">
+            <img src="https://via.placeholder.com/1200x300?text=GULDER+ULTIMATE+RETURNS" alt="Top Banner" class="banner-image">
+        </section>
+
+        <!-- Animated Scroll Section -->
+        <section class="scroll-section">
+            <div class="scroll-container">
+                <div class="scroll-handle">
+                    <div class="fire-animation">🔥</div>
+                </div>
+                <div class="scroll-content">
+                    <p class="scroll-text">Do you have what it takes?</p>
+                    <p class="scroll-text">Sound the trumpet; GULDER THE ULTIMATE RETURNS</p>
+                    <p class="scroll-text">Climb the online ladder</p>
+                    <p class="scroll-text">Accumulate your energy point</p>
+                    <p class="scroll-text">Your clock ticks once you register.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Banner -->
+        <section class="banner-bottom">
+            <img src="https://via.placeholder.com/1200x300?text=JOIN+THE+QUEST" alt="Bottom Banner" class="banner-image">
+        </section>
+
+        <!-- Registration Form Section -->
+        <section class="registration-section" id="registrationSection">
+            <h2>Register to Participate</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <select id="state" name="state" required>
+                        <option value="">Select State</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="lga">Local Government Area:</label>
+                    <select id="lga" name="lga" required disabled>
+                        <option value="">Select LGA</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-register">Register</button>
+            </form>
+        </section>
+
+        <!-- Login Form Section (Hidden) -->
+        <section class="login-section" id="loginSection" style="display:none;">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginName">Full Name:</label>
+                    <input type="text" id="loginName" name="loginName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPhone">Phone Number:</label>
+                    <input type="tel" id="loginPhone" name="loginPhone" required>
+                </div>
+
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+        </section>
+
+        <!-- Points Section -->
+        <section class="points-section" id="pointsSection" style="display:none;">
+            <h2>Your Referral Points</h2>
+            <div class="points-card">
+                <p>Your Referral Code: <strong id="refCodeDisplay"></strong></p>
+                <p>Total Visitors: <strong id="visitorCount">0</strong></p>
+                <p>Total Points: <strong id="totalPoints">0</strong></p>
+                <div class="referral-link-box">
+                    <label>Your Referral Link:</label>
+                    <input type="text" id="referralLink" readonly>
+                    <button class="btn-copy" onclick="copyToClipboard()">Copy Link</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faqSection" style="display:none;">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <h3 class="faq-title">How do I participate?</h3>
+                    <div class="faq-content">
+                        Simply click the registration button, enter your name and phone number, then submit the form. You will instantly receive your unique referral code.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-title">How do I earn rewards?</h3>
+                    <div class="faq-content">
+                        Share your unique referral link or code with friends. When eligible referrals are completed according to the promotion rules, you can qualify for available rewards.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-title">Is participation free?</h3>
+                    <div class="faq-content">
+                        Yes. Registration and participation in this promotion are completely free.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-title">When can I claim my reward?</h3>
+                    <div class="faq-content">
+                        The Claim Reward button will unlock automatically once you meet the required participation criteria shown on your dashboard.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-title">How will I know if my referrals are counted?</h3>
+                    <div class="faq-content">
+                        Your progress will be updated on the website after eligible referrals are successfully recorded, so you can track your status.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-title">Who can participate?</h3>
+                    <div class="faq-content">
+                        Anyone who meets the promotion's eligibility requirements and follows the campaign rules may participate.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task Section - BLOW THE TRUMPET -->
+        <section class="task-section" id="taskSection" style="display:none;">
+            <h2>BLOW THE TRUMPET</h2>
+            
+            <div class="task-container">
+                <!-- WhatsApp Share Button -->
+                <div class="whatsapp-share">
+                    <button class="btn-whatsapp" id="shareWhatsAppBtn">
+                        <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                    </button>
+                    <p id="shareCount">Shares: 0/6</p>
+                </div>
+
+                <!-- Energy Sharing Box -->
+                <div class="energy-box">
+                    <div class="energy-container">
+                        <img src="https://via.placeholder.com/400x300?text=GULDER+ENERGY" alt="Energy Background" class="energy-bg">
+                        <div class="energy-text">
+                            <h3>Spell GULDER</h3>
+                            <div class="letter-box">
+                                <span id="letter1" class="letter">G</span>
+                                <span id="letter2" class="letter">U</span>
+                                <span id="letter3" class="letter">L</span>
+                                <span id="letter4" class="letter">D</span>
+                                <span id="letter5" class="letter">E</span>
+                                <span id="letter6" class="letter">R</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Redeem Code Button -->
+                <div class="redeem-section">
+                    <button class="btn-redeem" id="redeemBtn" disabled>
+                        🔒 Redeem Code
+                    </button>
+                    <p class="redeem-info">Complete 6 WhatsApp shares to unlock</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comments Section -->
+        <section class="comments-section" id="commentsSection" style="display:none;">
+            <h2>Share Your Experience</h2>
+
+            <!-- Live Comments Display -->
+            <div class="live-comments">
+                <h3>What Others Are Saying</h3>
+                <div id="liveCommentsContainer" class="comments-carousel">
+                    <!-- Comments will be populated here -->
+                </div>
+            </div>
+
+            <!-- Submit Comment -->
+            <div class="submit-comment">
+                <h3>Leave Your Comment</h3>
+                <textarea id="commentBox" placeholder="Share your experience..."></textarea>
+                <button class="btn-submit-comment" id="submitCommentBtn">Submit Comment</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gulder - The Ultimate Returns. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
