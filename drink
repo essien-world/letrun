@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gulder - The Ultimate Returns</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-red: #DC143C;
+            --dark-red: #8B0000;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--primary-red);
+            color: var(--dark-red);
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: var(--dark-red);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: var(--primary-red);
+            transform: scale(1.05);
+        }
+
+        .user-info {
+            color: var(--white);
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Banners */
+        .banner-top,
+        .banner-bottom {
+            margin: 2rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .banner-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Animated Scroll Section */
+        .scroll-section {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            padding: 3rem 1rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-container {
+            position: relative;
+            height: 200px;
+        }
+
+        .scroll-handle {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .fire-animation {
+            font-size: 2rem;
+            animation: fireFlicker 0.8s infinite;
+        }
+
+        @keyframes fireFlicker {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.2) rotate(5deg); opacity: 0.8; }
+        }
+
+        .scroll-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .scroll-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            animation: scrollMove 15s infinite;
+            white-space: nowrap;
+        }
+
+        .scroll-text:nth-child(1) { animation-delay: 0s; }
+        .scroll-text:nth-child(2) { animation-delay: 3s; }
+        .scroll-text:nth-child(3) { animation-delay: 6s; }
+        .scroll-text:nth-child(4) { animation-delay: 9s; }
+        .scroll-text:nth-child(5) { animation-delay: 12s; }
+
+        @keyframes scrollMove {
+            0% { transform: translateX(100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(-100%); opacity: 0; }
+        }
+
+        /* Sections */
+        .section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-red);
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        #commentBox {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--primary-red);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        #commentBox:focus {
+            outline: none;
+            border-color: var(--dark-red);
+            box-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #20ba5a;
+            transform: scale(1.05);
+        }
+
+        .btn-copy {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-copy:hover {
+            background-color: var(--dark-red);
+        }
+
+        /* Points Section */
+        .points-card {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .points-card p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .referral-link-box {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            color: var(--dark-red);
+        }
+
+        .referral-link-box input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--primary-red);
+            border-radius: 3px;
+            margin: 0.5rem 0;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            border: 2px solid var(--primary-red);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .faq-title {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 1rem;
+            margin: 0;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+
+        .faq-title:hover {
+            background-color: var(--dark-red);
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1rem;
+            color: var(--dark-red);
+        }
+
+        .faq-item.active .faq-content {
+            max-height: 300px;
+            padding: 1rem;
+        }
+
+        /* Task Section */
+        .task-container {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .whatsapp-share {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            border-radius: 10px;
+            color: var(--white);
+        }
+
+        #shareCount {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: var(--white);
+        }
+
+        /* Energy Box */
+        .energy-box {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .energy-container {
+            position: relative;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+        }
+
+        .energy-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+
+        .energy-text {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .energy-text h3 {
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .letter-box {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .letter {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-gray);
+            border: 2px solid var(--primary-red);
+            border-radius: 5px;
+            font-weight: bold;
+            color: var(--dark-red);
+            transition: all 0.3s ease;
+        }
+
+        .letter.active {
+            background-color: var(--primary-red);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        /* Redeem Section */
+        .redeem-section {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            border-radius: 10px;
+            color: var(--white);
+        }
+
+        .btn-redeem {
+            background-color: var(--white);
+            color: var(--primary-red);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-redeem:hover:not(:disabled) {
+            background-color: var(--light-gray);
+            transform: scale(1.05);
+        }
+
+        .btn-redeem:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .redeem-info {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Comments Section */
+        .live-comments {
+            margin-bottom: 2rem;
+        }
+
+        .live-comments h3 {
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .comments-carousel {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            color: var(--white);
+        }
+
+        .comment-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid var(--white);
+        }
+
+        .comment-author {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Submit Comment */
+        .submit-comment {
+            margin-top: 2rem;
+        }
+
+        .submit-comment h3 {
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        #commentBox {
+            width: 100%;
+            min-height: 120px;
+            padding: 1rem;
+            border: 2px solid var(--primary-red);
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 1rem;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-red);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+
+            .nav-link {
+                padding: 0.3rem 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 1rem 0.5rem;
+            }
+
+            .scroll-text {
+                font-size: 1rem;
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            .task-container {
+                gap: 1.5rem;
+            }
+
+            .energy-container {
+                height: 250px;
+            }
+
+            .letter-box {
+                gap: 0.3rem;
+            }
+
+            .letter {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .points-card {
+                padding: 1rem;
+            }
+
+            .points-card p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-menu {
+                gap: 0.5rem;
+            }
+
+            .nav-link {
+                padding: 0.3rem 0.3rem;
+                font-size: 0.8rem;
+            }
+
+            .user-info {
+                font-size: 0.8rem;
+            }
+
+            .scroll-section {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .scroll-container {
+                height: 150px;
+            }
+
+            .scroll-text {
+                font-size: 0.9rem;
+            }
+
+            .fire-animation {
+                font-size: 1.5rem;
+            }
+
+            .section {
+                padding: 1rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1rem;
+            }
+
+            main {
+                padding: 0.5rem;
+            }
+
+            .comments-carousel {
+                min-height: 200px;
+            }
+
+            .comment-item {
+                padding: 0.75rem;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .login-form {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            color: var(--white);
+        }
+
+        .login-form .form-group label {
+            color: var(--white);
+        }
+
+        .login-form input {
+            background: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🍺 GULDER</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link" onclick="scrollToTop()">Home</a></li>
+                <li><a href="#" class="nav-link" id="loginBtn" onclick="toggleLoginForm(event)">Login</a></li>
+                <li><a href="#" class="nav-link" id="pointsBtn" onclick="showPoints(event)">Check Your Points</a></li>
+                <li><a href="#" class="nav-link" id="faqBtn" onclick="toggleFAQ(event)">FAQ</a></li>
+            </ul>
+            <div id="userInfo" class="user-info" style="display:none;">
+                <span id="userName"></span> | <span id="userPhone"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Top Banner -->
+        <section class="banner-top">
+            <img src="https://via.placeholder.com/1200x300?text=GULDER+ULTIMATE+RETURNS" alt="Top Banner" class="banner-image">
+        </section>
+
+        <!-- Animated Scroll Section -->
+        <section class="scroll-section">
+            <div class="scroll-container">
+                <div class="scroll-handle">
+                    <div class="fire-animation">🔥</div>
+                </div>
+                <div class="scroll-content">
+                    <p class="scroll-text">Do you have what it takes?</p>
+                    <p class="scroll-text">Sound the trumpet; GULDER THE ULTIMATE RETURNS</p>
+                    <p class="scroll-text">Climb the online ladder</p>
+                    <p class="scroll-text">Accumulate your energy point</p>
+                    <p class="scroll-text">Your clock ticks once you register.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Banner -->
+        <section class="banner-bottom">
+            <img src="https://via.placeholder.com/1200x300?text=JOIN+THE+QUEST" alt="Bottom Banner" class="banner-image">
+        </section>
+
+        <!-- Registration Form Section -->
+        <section class="section" id="registrationSection">
+            <h2>Register to Participate</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <select id="state" name="state" required>
+                        <option value="">Select State</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="lga">Local Government Area:</label>
+                    <select id="lga" name="lga" required disabled>
+                        <option value="">Select LGA</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-full">Register</button>
+            </form>
+        </section>
+
+        <!-- Login Form Section -->
+        <section class="section" id="loginFormSection" style="display:none;">
+            <h2>Login</h2>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="loginName">Full Name:</label>
+                    <input type="text" id="loginName" name="loginName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPhone">Phone Number:</label>
+                    <input type="tel" id="loginPhone" name="loginPhone" required>
+                </div>
+
+                <button type="submit" class="btn btn-full">Login</button>
+            </form>
+        </section>
+
+        <!-- Points Section -->
+        <section class="section" id="pointsSection" style="display:none;">
+            <h2>Your Referral Points</h2>
+            <div class="points-card">
+                <p>Your Referral Code: <strong id="refCodeDisplay"></strong></p>
+                <p>Total Visitors: <strong id="visitorCount">0</strong></p>
+                <p>Total Points: <strong id="totalPoints">0</strong></p>
+                <div class="referral-link-box">
+                    <label>Your Referral Link:</label>
+                    <input type="text" id="referralLink" readonly>
+                    <button type="button" class="btn-copy" onclick="copyToClipboard()">Copy Link</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section" id="faqSection" style="display:none;">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <h3 class="faq-title">❓ How do I participate?</h3>
+                    <div class="faq-content">
+                        Simply click the registration button, enter your name and phone number, then submit the form. You will instantly receive your unique referral code.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-title">💰 How do I earn rewards?</h3>
+                    <div class="faq-content">
+                        Share your unique referral link or code with friends. When eligible referrals are completed according to the promotion rules, you can qualify for available rewards.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-title">🆓 Is participation free?</h3>
+                    <div class="faq-content">
+                        Yes. Registration and participation in this promotion are completely free.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-title">🎁 When can I claim my reward?</h3>
+                    <div class="faq-content">
+                        The Claim Reward button will unlock automatically once you meet the required participation criteria shown on your dashboard.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-title">📊 How will I know if my referrals are counted?</h3>
+                    <div class="faq-content">
+                        Your progress will be updated on the website after eligible referrals are successfully recorded, so you can track your status.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-title">👥 Who can participate?</h3>
+                    <div class="faq-content">
+                        Anyone who meets the promotion's eligibility requirements and follows the campaign rules may participate.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task Section - BLOW THE TRUMPET -->
+        <section class="section" id="taskSection" style="display:none;">
+            <h2>BLOW THE TRUMPET</h2>
+            
+            <div class="task-container">
+                <!-- WhatsApp Share Button -->
+                <div class="whatsapp-share">
+                    <button type="button" class="btn btn-whatsapp" id="shareWhatsAppBtn">
+                        <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                    </button>
+                    <p id="shareCount">Shares: 0/6</p>
+                </div>
+
+                <!-- Energy Sharing Box -->
+                <div class="energy-box">
+                    <div class="energy-container">
+                        <img src="https://via.placeholder.com/400x300?text=GULDER+ENERGY" alt="Energy Background" class="energy-bg">
+                        <div class="energy-text">
+                            <h3>Spell GULDER</h3>
+                            <div class="letter-box">
+                                <span id="letter1" class="letter">G</span>
+                                <span id="letter2" class="letter">U</span>
+                                <span id="letter3" class="letter">L</span>
+                                <span id="letter4" class="letter">D</span>
+                                <span id="letter5" class="letter">E</span>
+                                <span id="letter6" class="letter">R</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Redeem Code Button -->
+                <div class="redeem-section">
+                    <button type="button" class="btn-redeem" id="redeemBtn" disabled>
+                        🔒 Redeem Code
+                    </button>
+                    <p class="redeem-info">Complete 6 WhatsApp shares to unlock</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comments Section -->
+        <section class="section" id="commentsSection" style="display:none;">
+            <h2>Share Your Experience</h2>
+
+            <!-- Live Comments Display -->
+            <div class="live-comments">
+                <h3>What Others Are Saying</h3>
+                <div id="liveCommentsContainer" class="comments-carousel">
+                    <!-- Comments will be populated here -->
+                </div>
+            </div>
+
+            <!-- Submit Comment -->
+            <div class="submit-comment">
+                <h3>Leave Your Comment</h3>
+                <textarea id="commentBox" placeholder="Share your experience..."></textarea>
+                <button type="button" class="btn btn-full" id="submitCommentBtn">Submit Comment</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gulder - The Ultimate Returns. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Nigerian States and LGAs
+        const nigeriStatesLGAs = {
+            "Abia": ["Aba North", "Aba South", "Arochukwu", "Bende", "Ikwuano", "Isiala Ngwa North", "Isiala Ngwa South", "Isuikwuato", "Obi Ngwa", "Ohafia", "Osisioma", "Ugwunagbo", "Ukwa East", "Ukwa West", "Umuahia North", "Umuahia South", "Umunneochi"],
+            "Adamawa": ["Demsa", "Fufure", "Guyuk", "Hong", "Jada", "Madawakin", "Maiduguri", "Mayo Belwa", "Michika", "Mubi North", "Mubi South", "Numan", "Shelleng", "Song", "Toungo", "Yola North", "Yola South"],
+            "Akwa Ibom": ["Abak", "Afikpo", "Ahoada", "Ajaokuta", "Akamkpa", "Akpabuyo", "Akwete", "Awe", "Bakassi", "Calabar Municipal", "Calabar South", "Esit Eket", "Essien Udim", "Etim Ekpo", "Etinan", "Iba", "Ibidio", "Ibom", "Ikot Abasi", "Ikot Ekpene", "Ini", "Itu", "Mbo", "Obot Akara", "Okobo", "Onna", "Oron", "Udung Uko", "Ukanafun", "Ukwa", "Ung", "Uruan", "Urue Offong", "Uyo"],
+            "Anambra": ["Aguata", "Anambra East", "Anambra West", "Annobi", "Awka North", "Awka South", "Ayamelum", "Dunukofia", "Ekwusigo", "Enugu South", "Idemili North", "Idemili South", "Ihiala", "Njikoka", "Nnewi North", "Nnewi South", "Ogbaru", "Onitsha North", "Onitsha South", "Orumba North", "Orumba South", "Oyi"],
+            "Bauchi": ["Alkaleri", "Bauchi", "Bogoro", "Damboa", "Darazo", "Das", "Duguri", "Gamawa", "Ganjuwa", "Giade", "Giwa", "Guzamala", "Gwale", "Gwoza", "Jada", "Jangere", "Jidda", "Jiga", "Jima", "Kachia", "Kafanchan", "Kagarko", "Kaita", "Kajanade", "Kakare", "Kano", "Kantudu", "Karay", "Karaye", "Karim Lamido"],
+            "Bayelsa": ["Brass", "Nembe", "Ogbia", "Sagbama", "Southern Ijaw", "Yenagoa"],
+            "Benue": ["Ado", "Agatu", "Apa", "Buruku", "Gboko", "Guma", "Gwer", "Gwer West", "Idoma", "Ihugh", "Ijaidu", "Ikwo", "Inyamen", "Isua", "Itakpe", "Itondo", "Jikwoyi", "Kachia", "Kadeok", "Kadura", "Kafanchan", "Kaiama", "Kaita", "Kaiton", "Kajuru", "Kakanda", "Kaki"],
+            "Cross River": ["Akamkpa", "Akpabuyo", "Bakassi", "Biase", "Boki", "Calabar Municipal", "Calabar South", "Etung", "Ikom", "Obanliku", "Obanlikpa", "Obubra", "Obudu", "Odukpani", "Ogoja", "Ohafia", "Onne", "Osimiri", "Ugep", "Yala"],
+            "Delta": ["Aniocha North", "Aniocha South", "Armada", "Asaba", "Awogu", "Bomadi", "Burutu", "Dandume", "Dekina", "Desai", "Desaiwu", "Dichishi", "Dore", "Ebbu", "Efon", "Efugo"],
+            "Ebonyi": ["Abakaliki", "Afikpo", "Afikpo North", "Afikpo South", "Ebonyi", "Ezza North", "Ezza South", "Ikwo", "Ishielu", "Ivo", "Izzi", "Ohaozara", "Ohaukwu", "Onicha"],
+            "Edo": ["Akoko-Edo", "Egor", "Esan Central", "Esan North-East", "Esan South-East", "Esan West", "Etsako Central", "Etsako East", "Etsako West", "Igueben", "Ikpoba-Okha", "Ohuovo", "Oredo", "Ovia North-East", "Ovia South-West", "Owan East", "Owan West", "Uhunmwonde"],
+            "Ekiti": ["Ado-Ekiti", "Aiyekire", "Aiyetoro", "Ajagunna", "Ajowa-Akoko", "Ejiogbe", "Ekiti East", "Ekiti South-West", "Ekiti West", "Emure", "Erijiyan-Ekiti", "Etiti", "Ido-Ekiti", "Ifelodun", "Ijarama"],
+            "Enugu": ["Abakaliki", "Agbani", "Aninri", "Awgu", "Enugu East", "Enugu North", "Enugu South", "Enugwu-Agidi", "Enugwu-Ezike", "Ezeagu", "Igbo-Etiti", "Igbo-Eze North", "Igbo-Eze South", "Igbo-Oji", "Inyi", "Isi-Uzo", "Ixii", "Nkanu East", "Nkanu West", "Nkpor"],
+            "Gombe": ["Akko", "Balanga", "Billiri", "Dukku", "Funakaye", "Gombe", "Kaltungo", "Katagum", "Kwami", "Shomgekom", "Yalmatu-Deba"],
+            "Imo": ["Aboh Mbaise", "Ahiazu Mbaise", "Ehime Mbano", "Ezinihitte Mbaise", "Ideato North", "Ideato South", "Igboeze South", "Ihitte/Uboma", "Ikeduru", "Isiala Mbano", "Isimangano", "Isoko", "Isu", "Isuikwuato", "Ivara", "Izzi"],
+            "Jigawa": ["Auyo", "Babbar", "Bade", "Badeggi", "Badigeri", "Baduma", "Bafara", "Bafira", "Bagadawa", "Bagaja", "Bagalla", "Bagalawa", "Bagaleshi", "Bagalga", "Bagalgi", "Bagaloji", "Bagaloma", "Bagalona", "Bagaloni"],
+            "Kaduna": ["Afaka", "Agban", "Agidi", "Agina", "Agona", "Agor", "Agwai", "Agwangu", "Agwanwu", "Ajara", "Akosombo", "Akpa", "Akpanya", "Akpatindi", "Akpata", "Akpe", "Akpo", "Akpoha"],
+            "Kano": ["Ajinkyra", "Albasa", "Aletawa", "Aletawa North", "Aletawa South", "Alewa", "Alewa North", "Alewa South", "Alewatti", "Alewa West", "Alewu", "Alewudu", "Alewudu East", "Alewudu South", "Alewudu West"],
+            "Katsina": ["Bade", "Batsari", "Daura", "Dandume", "Danja", "Daujawa", "Dutsi", "Ingawa", "Jibia", "Kafur", "Kaita", "Kankara", "Kankia", "Kaura Namoda", "Kiyawa"],
+            "Kebbi": ["Aleiro", "Arewa", "Argungu", "Augie", "Bagudo", "Birnin Kebbi", "Dandi", "Danko", "Fakai", "Gwandu", "Jega", "Kalgo", "Kamba", "Karangi", "Karita"],
+            "Kogi": ["Adavi", "Ajaokuta", "Akoko-Edo", "Akpata", "Akpo", "Akponu", "Akposa", "Akpota", "Akpoyi", "Akpoyi East", "Akpoyi North", "Akpoyi South", "Akpoyi West", "Akpoyi North East"],
+            "Kwara": ["Asa", "Baruten", "Edu", "Ekiti", "Ifelodun", "Isin", "Kaiama", "Kakanfo", "Kambari", "Kameh", "Kamelu", "Kamelu East"],
+            "Lagos": ["Agege", "Ajeromi-Ifelodun", "Alimosho", "Amuwo-Odofin", "Apapa", "Badagry", "Epe", "Eti-Osa", "Ibeju-Lekki", "Ifako-Ijaiye", "Ikeja", "Ikorodu", "Ikoyi", "Isolo"],
+            "Nasarawa": ["Akwanga", "Awe", "Doma", "Guma", "Kagarko", "Karishi", "Karu", "Keffi", "Keffi North", "Keffi South", "Kokona", "Kuja", "Lafia", "Lafia East"],
+            "Niger": ["Agaie", "Agama", "Agaraja", "Agarbini", "Agarbini East", "Agarbini North", "Agarbini South", "Agarbini West", "Agarle", "Agarley", "Agarley East", "Agarley North"],
+            "Ogun": ["Abeokuta North", "Abeokuta South", "Ado-Odo/Ota", "Aiyetoro", "Aiyetoro East", "Aiyetoro North", "Aiyetoro South", "Aiyetoro West", "Aiyetoro South East"],
+            "Ondo": ["Akoko North-East", "Akoko North-West", "Akoko South-East", "Akoko South-West", "Akure North", "Akure South", "Ale", "Aleruja", "Aleruja East"],
+            "Osun": ["Abeokuta", "Abeokuta East", "Abeokuta North", "Abeokuta South", "Abeokuta West", "Abeokutau", "Abeokutaland", "Abeokutaville", "Ado-Awaye", "Ado-Awaye East"],
+            "Oyo": ["Afijio", "Akinyele", "Akisipupa", "Akisipupa East", "Akisipupa North", "Akisipupa South", "Akisipupa West", "Alafara", "Alaganga", "Alagole"],
+            "Plateau": ["Barkin Ladi", "Barikin-Ladi", "Bassa", "Bassa South", "Bodinga", "Bokkos", "Bom", "Bompai", "Bompai East", "Bompai North"],
+            "Rivers": ["Abua-Odual", "Ahoada", "Ahoada East", "Ahoada West", "Akuku-Toru", "Andoni", "Asari-Toru", "Bonny", "Degema", "Eleme"],
+            "Sokoto": ["Binji", "Bodinga", "Dange-Shinku", "Gada", "Garki", "Gawabawa", "Goronyo", "Gudu", "Gulu", "Gulu East"],
+            "Taraba": ["Ardo-Kola", "Bali", "Basso", "Basso East", "Basso North", "Basso South", "Basso West", "Basso North East", "Basso North West"],
+            "Yobe": ["Bade", "Bursali", "Damaturu", "Damaturu East", "Damaturu North", "Damaturu South", "Damaturu West", "Damaturu North East"],
+            "Zamfara": ["Anka", "Bakura", "Birnin Magaji", "Bungudu", "Gummi", "Gusau", "Kaura Namoda", "Kiyawa", "Mada", "Maradun"]
+        };
+
+        let currentUser = null;
+        let referralCode = null;
+        let referralCount = 0;
+        let shareCount = 0;
+
+        // Sample live comments
+        const liveComments = [
+            { name: "Chioma Okafor", comment: "This promo is real, I won ₦50,000! Thanks for sharing the link with me." },
+            { name: "Oluwaseun Adeyemi", comment: "I've already referred 3 people and earned points. The process is so simple!" },
+            { name: "Amarachi Nwosu", comment: "Been using this for 2 weeks now. Loving it! Already got my first reward." },
+            { name: "Chinedu Eze", comment: "My friend won a laptop! This thing is legit, trust me." },
+            { name: "Zainab Hassan", comment: "The UI is so easy to use. Registered in less than a minute!" },
+            { name: "Tunde Ogunleye", comment: "I won ₦50,000 last month. Now trying to win the car! 🏎️" },
+            { name: "Blessing Okoro", comment: "Can't believe I got ₦50,000 already. Sharing this with everyone!" },
+            { name: "Kamsu Ibrahim", comment: "This is the real deal. Already got my referral bonuses coming in." },
+            { name: "Ade Akinwale", comment: "Won a phone already! Thanks Gulder for bringing back this promo." },
+            { name: "Ifeoma Nwachukwu", comment: "5 people have already registered through my link. Stacking points!" },
+            { name: "Kunle Adebayo", comment: "The referral system works perfectly. Easy money!" },
+            { name: "Ngozi Umeakali", comment: "Got ₦50,000 and a phone. This is unbelievable!" },
+            { name: "Emeka Chukwu", comment: "Already at 12 points. Target is to get 60 and win the car!" },
+            { name: "Folake Oladele", comment: "This promo changed my life. Highly recommended!" },
+            { name: "Chidi Ekeh", comment: "I've never seen something this transparent. All legit!" },
+            { name: "Zara Mohammed", comment: "Won ₦50,000 and I'm still in shock! Try it now!" },
+            { name: "Seun Oyewole", comment: "The fastest way to earn money in 2024!" },
+            { name: "Oma Okpara", comment: "This is what financial freedom looks like. Loving every bit!" },
+            { name: "Hassan Aliyu", comment: "Won a laptop! Thank you Gulder Ultimate Returns!" },
+            { name: "Rachel Obi", comment: "Already got ₦50,000 twice. This is amazing!" }
+        ];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            populateStates();
+            setupFAQ();
+            setupEventListeners();
+            initializeLiveComments();
+        });
+
+        // Populate Nigeria States
+        function populateStates() {
+            const stateSelect = document.getElementById('state');
+            Object.keys(nigeriStatesLGAs).sort().forEach(state => {
+                const option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            });
+        }
+
+        // Handle State Change
+        document.getElementById('state').addEventListener('change', function() {
+            const selectedState = this.value;
+            const lgaSelect = document.getElementById('lga');
+            
+            lgaSelect.innerHTML = '<option value="">Select LGA</option>';
+            
+            if (selectedState && nigeriStatesLGAs[selectedState]) {
+                lgaSelect.disabled = false;
+                nigeriStatesLGAs[selectedState].forEach(lga => {
+                    const option = document.createElement('option');
+                    option.value = lga;
+                    option.textContent = lga;
+                    lgaSelect.appendChild(option);
+                });
+            } else {
+                lgaSelect.disabled = true;
+            }
+        });
+
+        // Setup FAQ
+        function setupFAQ() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const title = item.querySelector('.faq-title');
+                title.addEventListener('click', function() {
+                    item.classList.toggle('active');
+                });
+            });
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('shareWhatsAppBtn').addEventListener('click', shareOnWhatsApp);
+            document.getElementById('redeemBtn').addEventListener('click', redeemCode);
+            document.getElementById('submitCommentBtn').addEventListener('click', submitComment);
+        }
+
+        // Handle Registration
+        function handleRegistration(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const state = document.getElementById('state').value;
+            const lga = document.getElementById('lga').value;
+            
+            // Generate referral code
+            referralCode = generateReferralCode();
+            
+            // Create user object
+            currentUser = {
+                name: name,
+                phone: phone,
+                state: state,
+                lga: lga,
+                referralCode: referralCode,
+                registeredDate: new Date().toLocaleString()
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('gulder_user', JSON.stringify(currentUser));
+            localStorage.setItem('gulder_referral_code', referralCode);
+            
+            alert(`🎉 Registration Successful!\n\nYour Referral Code: ${referralCode}\n\nShare this code with friends to earn points!`);
+            
+            // Update UI
+            updateUserInfo();
+            document.getElementById('registrationForm').reset();
+            document.getElementById('registrationSection').style.display = 'none';
+            document.getElementById('taskSection').style.display = 'block';
+            
+            // Scroll to task section
+            setTimeout(() => {
+                document.getElementById('taskSection').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+
+        // Handle Login
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('loginName').value;
+            const phone = document.getElementById('loginPhone').value;
+            
+            const storedUser = localStorage.getItem('gulder_user');
+            
+            if (storedUser) {
+                const user = JSON.parse(storedUser);
+                if (user.name === name && user.phone === phone) {
+                    currentUser = user;
+                    referralCode = user.referralCode;
+                    
+                    alert('✅ Login Successful!');
+                    updateUserInfo();
+                    document.getElementById('loginFormSection').style.display = 'none';
+                    document.getElementById('registrationSection').style.display = 'none';
+                    document.getElementById('taskSection').style.display = 'block';
+                    document.getElementById('loginForm').reset();
+                    
+                    setTimeout(() => {
+                        document.getElementById('taskSection').scrollIntoView({ behavior: 'smooth' });
+                    }, 300);
+                } else {
+                    alert('❌ Invalid credentials!');
+                }
+            } else {
+                alert('❌ User not found. Please register first!');
+            }
+        }
+
+        // Toggle Login Form
+        function toggleLoginForm(e) {
+            e.preventDefault();
+            
+            if (currentUser) {
+                logout();
+            } else {
+                const loginSection = document.getElementById('loginFormSection');
+                loginSection.style.display = loginSection.style.display === 'none' ? 'block' : 'none';
+                if (loginSection.style.display === 'block') {
+                    loginSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            referralCode = null;
+            shareCount = 0;
+            updateUserInfo();
+            document.getElementById('registrationSection').style.display = 'block';
+            document.getElementById('loginFormSection').style.display = 'none';
+            document.getElementById('taskSection').style.display = 'none';
+            alert('✅ Logged out successfully!');
+        }
+
+        // Update User Info in Navbar
+        function updateUserInfo() {
+            const userInfo = document.getElementById('userInfo');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userPhone').textContent = currentUser.phone;
+                userInfo.style.display = 'block';
+                loginBtn.textContent = 'Logout';
+            } else {
+                userInfo.style.display = 'none';
+                loginBtn.textContent = 'Login';
+            }
+        }
+
+        // Generate Referral Code
+        function generateReferralCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 8; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+
+        // Generate 9-Digit Reward Code
+        function generateRewardCode() {
+            let code = '';
+            for (let i = 0; i < 9; i++) {
+                if (i < 3) {
+                    code += String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                } else if (i < 6) {
+                    code += String.fromCharCode(97 + Math.floor(Math.random() * 26));
+                } else {
+                    code += Math.floor(Math.random() * 10);
+                }
+            }
+            return code;
+        }
+
+        // Show Points
+        function showPoints(e) {
+            e.preventDefault();
+            
+            if (!currentUser) {
+                alert('Please login first!');
+                return;
+            }
+            
+            document.getElementById('pointsSection').style.display = 'block';
+            document.getElementById('refCodeDisplay').textContent = referralCode;
+            document.getElementById('visitorCount').textContent = referralCount;
+            document.getElementById('totalPoints').textContent = referralCount * 100;
+            
+            const baseUrl = window.location.origin + window.location.pathname;
+            const referralLink = `${baseUrl}?ref=${referralCode}`;
+            document.getElementById('referralLink').value = referralLink;
+            
+            document.getElementById('pointsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Toggle FAQ
+        function toggleFAQ(e) {
+            e.preventDefault();
+            const faqSection = document.getElementById('faqSection');
+            faqSection.style.display = faqSection.style.display === 'none' ? 'block' : 'none';
+            if (faqSection.style.display === 'block') {
+                faqSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Share on WhatsApp
+        function shareOnWhatsApp() {
+            if (!currentUser) {
+                alert('Please login first!');
+                return;
+            }
+            
+            shareCount++;
+            document.getElementById('shareCount').textContent = `Shares: ${shareCount}/6`;
+            
+            // Unlock redeem button after 6 shares
+            if (shareCount >= 6) {
+                document.getElementById('redeemBtn').disabled = false;
+                document.querySelector('.redeem-info').textContent = '✅ Unlock to reveal your reward code!';
+            }
+            
+            // Activate letters in GULDER
+            if (shareCount <= 6) {
+                document.getElementById(`letter${shareCount}`).classList.add('active');
+            }
+            
+            // WhatsApp share message
+            const message = `🍺 The Ultimate Search is Back! 🔥
+(The Online Quest)
+
+The wait is over! Experience the exciting comeback of Gulder and discover "The Ultimate Returns."
+
+🎁 Visit the link below to:
+✅ Get your unique participation code.
+✅ Stand a chance to win ₦50,000  
+📱 Phone, 💻 Laptop, ₦5m & A Brand New Car.
+✅ Watch the exclusive comeback story.
+✅ ONE CODE = ONE PERSON.
+
+Please register through my link/code below, it will be credited to my referral, and you'll receive your own code to share with others too.
+👇 Tap here to get started:
+${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+            
+            alert(`✅ Share #${shareCount}/6\n\nKeep sharing to unlock your reward code!`);
+        }
+
+        // Redeem Code
+        function redeemCode() {
+            if (shareCount < 6) {
+                alert('You need to complete 6 WhatsApp shares first!');
+                return;
+            }
+            
+            // Open new window
+            const rewardWindow = window.open('about:blank', 'rewardWindow', 'width=500,height=300');
+            
+            // Wait 6 seconds before displaying code
+            setTimeout(() => {
+                if (!rewardWindow.closed) {
+                    const rewardCode = generateRewardCode();
+                    const htmlContent = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <style>
+                                body {
+                                    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    height: 100vh;
+                                    font-family: Arial, sans-serif;
+                                    margin: 0;
+                                }
+                                .container {
+                                    background: white;
+                                    padding: 2rem;
+                                    border-radius: 10px;
+                                    text-align: center;
+                                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                                }
+                                h1 {
+                                    color: #DC143C;
+                                    margin-bottom: 1rem;
+                                }
+                                .code-box {
+                                    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+                                    color: white;
+                                    padding: 1.5rem;
+                                    border-radius: 5px;
+                                    font-size: 2rem;
+                                    font-weight: bold;
+                                    letter-spacing: 2px;
+                                    margin: 1.5rem 0;
+                                    font-family: monospace;
+                                }
+                                p {
+                                    color: #8B0000;
+                                }
+                                .copy-btn {
+                                    background: #DC143C;
+                                    color: white;
+                                    padding: 0.75rem 1.5rem;
+                                    border: none;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    font-weight: bold;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="container">
+                                <h1>🎉 Your Reward Code 🎉</h1>
+                                <p>Congratulations! Here's your unique reward code:</p>
+                                <div class="code-box">${rewardCode}</div>
+                                <p>Save this code for your reward redemption.</p>
+                                <button class="copy-btn" onclick="navigator.clipboard.writeText('${rewardCode}'); alert('Code copied!');">Copy Code</button>
+                            </div>
+                        </body>
+                        </html>
+                    `;
+                    rewardWindow.document.write(htmlContent);
+                    rewardWindow.document.close();
+                }
+            }, 6000);
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard() {
+            const link = document.getElementById('referralLink');
+            link.select();
+            document.execCommand('copy');
+            alert('✅ Referral link copied to clipboard!');
+        }
+
+        // Initialize Live Comments
+        function initializeLiveComments() {
+            displayCommentBatch(0);
+            setInterval(() => {
+                const currentBatch = Math.floor((Date.now() / (30 * 60 * 1000)) % 4);
+                displayCommentBatch(currentBatch);
+            }, 30 * 60 * 1000);
+        }
+
+        // Display Comment Batch
+        function displayCommentBatch(batchIndex) {
+            const container = document.getElementById('liveCommentsContainer');
+            const startIndex = batchIndex * 5;
+            const endIndex = startIndex + 5;
+            const batch = liveComments.slice(startIndex, endIndex);
+            
+            container.innerHTML = '';
+            
+            batch.forEach(comment => {
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment-item';
+                commentDiv.innerHTML = `
+                    <div class="comment-author">👤 ${comment.name}</div>
+                    <div class="comment-text">${comment.comment}</div>
+                `;
+                container.appendChild(commentDiv);
+            });
+        }
+
+        // Submit Comment
+        function submitComment() {
+            const commentBox = document.getElementById('commentBox');
+            const comment = commentBox.value;
+            
+            if (!comment.trim()) {
+                alert('Please enter a comment!');
+                return;
+            }
+            
+            // Create new window
+            const submissionWindow = window.open('about:blank', 'submissionWindow', 'width=500,height=300');
+            
+            // After 6 seconds, show message
+            setTimeout(() => {
+                if (!submissionWindow.closed) {
+                    const htmlContent = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <style>
+                                body {
+                                    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    height: 100vh;
+                                    font-family: Arial, sans-serif;
+                                    margin: 0;
+                                }
+                                .container {
+                                    background: white;
+                                    padding: 2rem;
+                                    border-radius: 10px;
+                                    text-align: center;
+                                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                                }
+                                h1 {
+                                    color: #DC143C;
+                                    margin-bottom: 1rem;
+                                }
+                                p {
+                                    color: #8B0000;
+                                    font-size: 1.2rem;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="container">
+                                <h1>✅ Success!</h1>
+                                <p>Your comment will be uploaded soon</p>
+                            </div>
+                        </body>
+                        </html>
+                    `;
+                    submissionWindow.document.write(htmlContent);
+                    submissionWindow.document.close();
+                }
+            }, 6000);
+            
+            commentBox.value = '';
+            alert('✅ Comment submitted! Check the new window.');
+        }
+
+        // Check for referral code in URL
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refCode = urlParams.get('ref');
+            
+            if (refCode) {
+                referralCount++;
+                localStorage.setItem('gulder_visitor_count', referralCount);
+            }
+        });
+    </script>
+</body>
+</html>
